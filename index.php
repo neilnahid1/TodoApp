@@ -47,7 +47,7 @@ $userTasks = mysqli_query($link, $query);
         <tbody>
             <?php
             while ($row = $userTasks->fetch_assoc()) {
-                echo "<tr>";
+                echo "<tr id=row".$row['TaskCodeID'].">";
                 echo "<td>{$row['TaskCodeID']}</td>";
                 echo "<td>{$row['Name']}</td>";
                 echo "<td class='text-center'>";
@@ -161,7 +161,7 @@ $userTasks = mysqli_query($link, $query);
                             <input name="iDescription" type="text" class="form-control" id="uTaskDescription" placeholder="Enter Description">
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <input class="form-check-input" type="checkbox" value="" id="uTaskCheckBox">
                             <label class="form-check-label" for="defaultCheck1">
                                 Completed
                             </label>
@@ -169,7 +169,7 @@ $userTasks = mysqli_query($link, $query);
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnCreate" type="button" class="btn btn-primary">Update</button>
+                    <button id="btn_update" type="button" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ $(document).ready(() => {
         event.preventDefault();
         var data = $('#update_task').serializeArray();
         $.ajax({
-            url: "../php/view_task.php",
+            url: "../php/update_task.php",
             data: data,
             type: 'POST',
             success: (data) => {
@@ -34,5 +34,6 @@ function FetchUpdateModalValues(data) {
     document.getElementById("uTaskDescription").value = data[0].Description;
 }
 function updateTableRowValues(data) {
-
+    var element = getElementById(`#row${data[0].UserCodeID}`);
+    alert(element);
 }
