@@ -1,11 +1,21 @@
 <?php
+session_start();
 require('helper.php'); // includes mysqli_connect and helper functions
+if (isset($_SESSION['user'])) {
+  header("Location: ../index.php");
+}
 $fields = array('username', 'password');
 if (isFieldsSet($fields)) {
   $username = $_POST['username'];
   $password = $_POST['password'];
-  $res = mysqli_query($link, "select * from Users where Username = '$username' AND Password = '$password'");
-  var_dump($res);
+  $query = "select * from Users where Username='$username' and password='$password'";
+  $res = mysqli_query($link, $query);
+  if (mysqli_num_rows($res)) {
+    $_SESSION['user'] = mysqli_fetch_assoc($res);
+    header("Location: ../index.php");
+  } else {
+    alert("Invalid login");
+  }
 }
 ?>
 <!doctype html>
