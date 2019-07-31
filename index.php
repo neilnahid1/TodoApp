@@ -144,14 +144,14 @@ $userTasks = mysqli_query($link, $query);
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="viewTaskModalLabel">Viewing Task</h5>
+                    <h5 class="modal-title" id="viewTaskModalLabel">Updating Task</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <!-- update Task FORM -->
-                    <form id="addTask">
+                    <form id="update_task">
                         <div class="form-group">
                             <label for="iTaskName">Name</label>
                             <input name="iTaskName" type="text" class="form-control" id="uTaskName" placeholder="Enter task name">
@@ -179,6 +179,7 @@ $userTasks = mysqli_query($link, $query);
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../js/CreateTaskHandler.js"></script>
     <script src="../js/viewTaskHandler.js"></script>
+    <script src="../js/updateTaskHandler.js"></script>
     <script>
     </script>
 </body>

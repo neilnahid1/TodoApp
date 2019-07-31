@@ -1,6 +1,7 @@
 //event handler for create button from the modal.
 $(document).ready(function () {
-    $("#btnCreate").click(function () {
+    $("#btnCreate").click(function (event) {
+        event.preventDefault();
         var data = $('#addTask').serializeArray();
         $.ajax({
             url: "../php/add_task.php",
