@@ -23,7 +23,7 @@ function updateTasksTableDOM(data) {
         <td>
             <button data-toggle='modal' value='${data[0].TaskCodeID}' id='viewTask'  data-target='#viewTaskModal' class='btn btn-dark'>View</button>
             <button data-toggle='modal' value='${data[0].TaskCodeID}' id='updateTask' data-target='#viewTask' class='btn btn-dark'>Edit</button>
-            <button data-toggle='modal' value='${data[0].TaskCodeID}' data-target='#viewTask' class='btn btn-dark'>Delete</button>
+            <button data-toggle='modal' value='${data[0].TaskCodeID}' id='deleteTask' data-target='#viewTask' class='btn btn-dark'>Delete</button>
         </td>
     </tr>`;
     $('#btn_NewRow').before(dom);
