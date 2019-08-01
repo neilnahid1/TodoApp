@@ -2,11 +2,10 @@
 session_start();
 require('helper.php'); // includes mysqli_connect and helper functions
 if (isset($_SESSION['user'])) {
-
   //redirect according to user type 1 - admin, 2 - user
-  if ($_SESSION['user']['RoleID'] == 1)
-    header("Location: ../php/admin.php");
-  else if ($_SESSION['user']['RoleID'] == 2)
+  if ($_SESSION['user']['RoleID'] == "1")
+    header("Location: ../php/admin/admin.php");
+  else if ($_SESSION['user']['RoleID'] == "2")
     header("Location: ../index.php");
 }
 $fields = array('username', 'password');
@@ -17,11 +16,14 @@ if (isFieldsSet($fields)) {
   $res = mysqli_query($link, $query);
   if (mysqli_num_rows($res)) {
     $user = $res->fetch_assoc();
-    if (password_verify($password,$user['Password'])) {
+    if (password_verify($password, $user['Password'])) {
       $_SESSION['user'] = $user;
-      header("Location: ../index.php");
+      if ($user['RoleID'] == 1)
+        header("Location: ../php/admin.php");
+      else
+        header("Location: ../index.php");
     } else {
-      alert("Invalid  password");
+      alert("Invalid password");
     }
   } else {
     alert("Invalid Username/password");

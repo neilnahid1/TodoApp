@@ -16,14 +16,16 @@ $(document).ready(function () {
 });
 function updateTasksTableDOM(data) {
     dom =
-        `<tr>
-        <td>${data[0].TaskCodeID}</td>
-        <td>${data[0].Name}</td>
-        <td>${data[0].IsComplete}</td>
+        `<tr id='row${data[0].TaskCodeID}'>
+        <td id='td_TaskCodeID'>${data[0].TaskCodeID}</td>
+        <td id='td_name'>${data[0].Name}</td>
+        <td class='text-center'>
+        <input id='td_IsComplete' class='form-check-input' type='checkbox' id='defaultCheck1'${data[0].IsComplete == 1 ? "checked" : ""} onclick='return false;'>
+        </td>
         <td>
-            <button data-toggle='modal' value='${data[0].TaskCodeID}' id='viewTask'  data-target='#viewTaskModal' class='btn btn-dark'>View</button>
-            <button data-toggle='modal' value='${data[0].TaskCodeID}' id='updateTask' data-target='#viewTask' class='btn btn-dark'>Edit</button>
-            <button data-toggle='modal' value='${data[0].TaskCodeID}' id='deleteTask' data-target='#viewTask' class='btn btn-dark'>Delete</button>
+            <button value='${data[0].TaskCodeID}' data-toggle='modal'  id='viewTask'  data-target='#viewTaskModal' class='btn btn-dark'>View</button>
+            <button value='${data[0].TaskCodeID}' data-toggle='modal'  id='updateTask' data-target='#updateTaskModal' class='btn btn-dark'>Edit</button>
+            <button value='${data[0].TaskCodeID}' data-toggle='modal'  id='deleteTask' data-target='#deleteTaskModal' class='btn btn-dark'>Delete</button>
         </td>
     </tr>`;
     $('#btn_NewRow').before(dom);

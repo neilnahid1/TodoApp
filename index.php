@@ -4,8 +4,9 @@ require('../TodoApp/php/helper.php');
 //redirects to login if session doesn't exist
 if (!isset($_SESSION['user'])) {
     header("Location: ../php/login.php");
-}
+} else if($_SESSION['user']['RoleID']==1) header("Location: ../php/admin.php");
 $user = $_SESSION['user'];
+var_dump($user);
 // var_dump($user);
 $query = "select * from Tasks where userID={$user['UserID']}";
 // var_dump($query);
@@ -37,12 +38,10 @@ $userTasks = mysqli_query($link, $query);
     <h1 class="text-center">Tasks Table</h1>
     <table class="table table-bordered">
         <thead class="thead-dark">
-            <tr>
                 <th style="width:10%">TaskID</th>
                 <th style="width:50%">Name</th>
                 <th style="width:10%">Completed</th>
                 <th></th>
-            </tr>
         </thead>
         <tbody>
             <?php
@@ -51,13 +50,13 @@ $userTasks = mysqli_query($link, $query);
                 echo "<td id=td_TaskCodeID>{$row['TaskCodeID']}</td>";
                 echo "<td id=td_name>{$row['Name']}</td>";
                 echo "<td class='text-center'>";
-                echo "<input id=td_IsComplete class='form-check-input' type='checkbox' id='defaultCheck1'" . ($row['IsComplete'] == 1 ? "checked" : "1") . " onclick='return false;'>";
+                echo "<input id=td_IsComplete class='form-check-input' type='checkbox'" . ($row['IsComplete'] == 1 ? "checked" : "1") . " onclick='return false;'>";
                 echo "</td>";
                 //buttons
                 echo "<td>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='viewTask' data-target='#viewTaskModal' class='btn btn-dark'>View</button>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='updateTask' data-target='#updateTaskModal' class='btn btn-dark'>Edit</button>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='deleteTask' data-target='#deleteTaskModal' class='btn btn-dark'>Delete</button>";
+                echo "<button onclick='' value='{$row['TaskCodeID']}' data-toggle='modal' id='viewTask' data-target='#viewTaskModal' class='btn btn-dark'>View</button>";
+                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='updateTask' data-target='#updateUserModal' class='btn btn-dark'>Edit</button>";
+                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='deleteTask' data-target='#deleteUserModal' class='btn btn-dark'>Delete</button>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -179,7 +178,7 @@ $userTasks = mysqli_query($link, $query);
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Are you sure you want to delete task?</h2>
+                    <h2>Are you sure you want to delete User?</h2>
                 </div>
                 <div class="modal-footer">
                     <button id="btn_cancel" type="button" data-dismiss="modal" class="btn btn-dark">Cancel</button>
