@@ -20,8 +20,7 @@ $(document).ready(() => {
             data: data,
             type: 'POST',
             success: (data) => {
-                var data = JSON.parse(data);
-                updateTableRowValues(data);
+                updateTableRowValues(JSON.parse(data));
             }
         });
 
@@ -32,8 +31,16 @@ function FetchUpdateModalValues(data) {
     //can be accessed as data[0].propertyName
     document.getElementById("uTaskName").value = data[0].Name;
     document.getElementById("uTaskDescription").value = data[0].Description;
+    document.getElementById("uTaskCodeID").value = data[0].TaskCodeID;
+    document.getElementById("uTaskIsComplete").checked = data[0].IsComplete == 0 ? false : true;
 }
 function updateTableRowValues(data) {
-    var element = getElementById(`#row${data[0].UserCodeID}`);
-    alert(element);
+    var rowID = "row" + data[0].TaskCodeID; //gets the updated row
+    var element = document.getElementById(rowID)
+    //taskcodeID, first col
+    element.childNodes[0].textContent = data[0].TaskCodeID;
+    //Name, second col
+    element.childNodes[1].textContent = data[0].Name;
+    //checkbox isComplete, third col
+    element.childNodes[2].childNodes[0].checked = data[0].IsComplete == 0 ? false : true;
 }

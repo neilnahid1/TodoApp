@@ -47,11 +47,11 @@ $userTasks = mysqli_query($link, $query);
         <tbody>
             <?php
             while ($row = $userTasks->fetch_assoc()) {
-                echo "<tr id=row".$row['TaskCodeID'].">";
-                echo "<td>{$row['TaskCodeID']}</td>";
-                echo "<td>{$row['Name']}</td>";
+                echo "<tr id=row" . $row['TaskCodeID'] . ">";
+                echo "<td id=td_TaskCodeID>{$row['TaskCodeID']}</td>";
+                echo "<td id=td_name>{$row['Name']}</td>";
                 echo "<td class='text-center'>";
-                echo "<input class='form-check-input' type='checkbox' id='defaultCheck1'" . ($row['IsComplete'] == 1 ? "checked" : "1") . " disabled>";
+                echo "<input id=td_IsComplete class='form-check-input' type='checkbox' id='defaultCheck1'" . ($row['IsComplete'] == 1 ? "checked" : "1") . " onclick='return false;'>";
                 echo "</td>";
                 //buttons
                 echo "<td>";
@@ -122,14 +122,14 @@ $userTasks = mysqli_query($link, $query);
                     <form id="addTask">
                         <div class="form-group">
                             <label for="iTaskName">Name</label>
-                            <input name="iTaskName" type="text" class="form-control" id="vTaskName" placeholder="Enter task name">
+                            <input name="iTaskName" readonly type="text" class="form-control" id="vTaskName" placeholder="Enter task name">
                         </div>
                         <div class="form-group">
                             <label for="iDescription">Description</label>
-                            <input name="iDescription" type="text" class="form-control" id="vTaskDescription" placeholder="Enter Description">
+                            <input name="iDescription" readonly type="text" class="form-control" id="vTaskDescription" placeholder="Enter Description">
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" id="defaultCheck1" disabled>
+                            <input class="form-check-input" type="checkbox" id="vTaskIsComplete" onclick="return false;">
                             <label class="form-check-label" for="defaultCheck1">
                                 Completed
                             </label>
@@ -152,16 +152,17 @@ $userTasks = mysqli_query($link, $query);
                 <div class="modal-body">
                     <!-- update Task FORM -->
                     <form id="update_task">
+                        <input type="hidden" name="TaskCodeID" id="uTaskCodeID">
                         <div class="form-group">
                             <label for="iTaskName">Name</label>
-                            <input name="iTaskName" type="text" class="form-control" id="uTaskName" placeholder="Enter task name">
+                            <input name="Name" type="text" class="form-control" id="uTaskName" placeholder="Enter task name">
                         </div>
                         <div class="form-group">
                             <label for="iDescription">Description</label>
-                            <input name="iDescription" type="text" class="form-control" id="uTaskDescription" placeholder="Enter Description">
+                            <input name="Description" type="text" class="form-control" id="uTaskDescription" placeholder="Enter Description">
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="" id="uTaskCheckBox">
+                            <input name="IsComplete" class="form-check-input" type="checkbox" id="uTaskIsComplete">
                             <label class="form-check-label" for="defaultCheck1">
                                 Completed
                             </label>

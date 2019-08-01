@@ -19,4 +19,5 @@ function updateModalValues(data) {
     //can be accessed as data[0].propertyName
     document.getElementById("vTaskName").value = data[0].Name;
     document.getElementById("vTaskDescription").value = data[0].Description;
+    document.getElementById("vTaskIsComplete").checked = data[0].IsComplete == 0 ? false : true;
 }
