@@ -4,12 +4,12 @@ $res = mysqli_query($link, "select Name from Roles");
 $fields = array('username', 'password');
 if (isFieldsSet($fields)) {
     $username = $_POST['username'];
-    $password = $_POST['password'];
-    $query = "insert into Users(username,password,roleID) values('$username','$password',2);";
+    $hashedPassword = password_hash($_POST['password'], PASSWORD_BCRYPT);
+    $query = "insert into Users(username,password,roleID) values('$username','$hashedPassword',2);";
     if (mysqli_query($link, $query)) {
-        alert("Successfully Registered");
+        print "<script>alert('successfully registered!');location.href='../php/login.php'</script>";
     } else {
-        alert("Username Already Exists!");
+        echo mysqli_error($link);
     }
 } else {
     echo "you went bottom";

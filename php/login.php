@@ -2,19 +2,29 @@
 session_start();
 require('helper.php'); // includes mysqli_connect and helper functions
 if (isset($_SESSION['user'])) {
-  header("Location: ../index.php");
+
+  //redirect according to user type 1 - admin, 2 - user
+  if ($_SESSION['user']['RoleID'] == 1)
+    header("Location: ../php/admin.php");
+  else if ($_SESSION['user']['RoleID'] == 2)
+    header("Location: ../index.php");
 }
 $fields = array('username', 'password');
 if (isFieldsSet($fields)) {
   $username = $_POST['username'];
   $password = $_POST['password'];
-  $query = "select * from Users where Username='$username' and password='$password'";
+  $query = "select * from Users where Username='$username'";
   $res = mysqli_query($link, $query);
   if (mysqli_num_rows($res)) {
-    $_SESSION['user'] = mysqli_fetch_assoc($res);
-    header("Location: ../index.php");
+    $user = $res->fetch_assoc();
+    if (password_verify($password,$user['Password'])) {
+      $_SESSION['user'] = $user;
+      header("Location: ../index.php");
+    } else {
+      alert("Invalid  password");
+    }
   } else {
-    alert("Invalid login");
+    alert("Invalid Username/password");
   }
 }
 ?>

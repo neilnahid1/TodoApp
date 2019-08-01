@@ -1,15 +1,11 @@
 <?php
 session_start();
-require('../TodoApp/php/helper.php');
+require('../php/helper.php');
 //redirects to login if session doesn't exist
 if (!isset($_SESSION['user'])) {
     header("Location: ../php/login.php");
 }
 $user = $_SESSION['user'];
-// var_dump($user);
-$query = "select * from Tasks where userID={$user['UserID']}";
-// var_dump($query);
-$userTasks = mysqli_query($link, $query);
 ?>
 
 <!DOCTYPE html>
@@ -20,13 +16,13 @@ $userTasks = mysqli_query($link, $query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <title>User</title>
+    <title>Admin</title>
 </head>
 
 <body>
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
-            <h1 class="display-4">Welcome, <?= $user['Username'] ?></h1>
+            <h1 class="display-4">Welcome, <?= $user['username'] ?></h1>
             <p class="lead">Listed below are your to-do lists.</p>
             <form action="../php/logout.php">
                 <input type="hidden" name="isLoggedOut" value=>
