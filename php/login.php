@@ -53,6 +53,7 @@ if (isFieldsSet($fields)) {
               <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Enter Password">
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
+            <button type="button" onclick="window.location = '../php/register.php'" class="btn btn-primary">Register</button>
           </form>
         </div>
       </div>
