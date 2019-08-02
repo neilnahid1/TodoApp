@@ -55,8 +55,8 @@ $userTasks = mysqli_query($link, $query);
                 //buttons
                 echo "<td>";
                 echo "<button onclick='' value='{$row['TaskCodeID']}' data-toggle='modal' id='viewTask' data-target='#viewTaskModal' class='btn btn-dark'>View</button>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='updateTask' data-target='#updateUserModal' class='btn btn-dark'>Edit</button>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='deleteTask' data-target='#deleteUserModal' class='btn btn-dark'>Delete</button>";
+                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='updateTask' data-target='#updateTaskModal' class='btn btn-dark'>Edit</button>";
+                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='deleteTask' data-target='#deleteTaskModal' class='btn btn-dark'>Delete</button>";
                 echo "</td>";
                 echo "</tr>";
             }
