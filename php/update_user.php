@@ -6,7 +6,7 @@ if (isset($_SESSION['user']) && !empty($_POST['UserID']) && !empty($_POST['Usern
     $username = $_POST['Username'];
     $roleID = $_POST['RoleID'];
     $userID = $_POST['UserID'];
-    if (isset($_POST['Password'])) {
+    if (!empty($_POST['Password'])) {
         $password = password_hash($_POST['Password'], PASSWORD_BCRYPT);
         $query = "update Users set username='$username',password='$password',roleid=$roleID where userID =$userID";
     } else {

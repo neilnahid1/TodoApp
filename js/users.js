@@ -1,6 +1,7 @@
 function generateUsersTable(users) {
     //Users is an array of JSON objects
-    let table = document.getElementById('usersTable');
+    document.getElementById('table_name').innerHTML = "Users Table";
+    let table = document.getElementById('mainTable');
     table.innerHTML = "";
     table.style.tableLayout = "fixed";
     createUserTableHeaders(users[0], table);
@@ -83,21 +84,22 @@ function updateUser() {
         data: formData,
         type: "POST",
         success: data => {
+            alert(data);
             fetchUsersTable();
         }
     });
 }
-function deleteUser(UserID){
+function deleteUser(UserID) {
     $.ajax({
         url: "../php/delete_user.php",
-        data: {UserID: UserID},
+        data: { UserID: UserID },
         type: "POST",
-        success: data=>{
+        success: data => {
             alert(data);
             fetchUsersTable();
         }
     })
 }
-function assignModalDeleteButtonValue(UserID){
+function assignModalDeleteButtonValue(UserID) {
     document.getElementById("btn_delete").value = UserID;
 }

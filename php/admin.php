@@ -35,13 +35,13 @@ $result = mysqli_query($link, $query);
     <div class="row">
         <div class='col'></div>
         <div class='col'>
-            <h1 class="text-center">Users Table</h1>
+            <h1 id="table_name"class="text-center">Users Table</h1>
         </div>
         <div class='col text-right'>
             <button class='btn-primary' onclick="fetchUsersTable()">Users Table</button>
-            <button class='btn-primary' onclick="generateTasksTable()">Tasks Table</button></div>
+            <button class='btn-primary' onclick="fetchTasksTable()">Tasks Table</button></div>
     </div>
-    <table id="usersTable" class="table table-striped" style="table-layout:fixed">
+    <table id="mainTable" class="table table-striped" style="table-layout:fixed">
         <!-- TABLE DATA WILL BE DYNAMICALLY GENERATED  -->
     </table>
     <!-- Modal for Viewing User Tasks -->
