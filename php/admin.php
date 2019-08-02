@@ -35,7 +35,7 @@ $result = mysqli_query($link, $query);
     <div class="row">
         <div class='col'></div>
         <div class='col'>
-            <h1 id="table_name"class="text-center">Users Table</h1>
+            <h1 id="table_name" class="text-center">Users Table</h1>
         </div>
         <div class='col text-right'>
             <button class='btn-primary' onclick="fetchUsersTable()">Users Table</button>
@@ -45,7 +45,7 @@ $result = mysqli_query($link, $query);
         <!-- TABLE DATA WILL BE DYNAMICALLY GENERATED  -->
     </table>
     <!-- Modal for Viewing User Tasks -->
-    <div class="modal fade" id="viewTaskModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
+    <div class="modal fade" id="viewUserTasksModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -108,7 +108,118 @@ $result = mysqli_query($link, $query);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="btn_delete" onclick="deleteUser(this.value)" class="btn btn-danger">Delete</button>
+                    <button data-dismiss="modal" id="btn_deleteUser" onclick="deleteUser(this.value)" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Creating new task-->
+    <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Create New Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    CREATE NEW TASK FORM
+                    <form id="addTask">
+                        <div class="form-group">
+                            <label for="iTaskName">Name</label>
+                            <input name="iTaskName" type="text" class="form-control" id="iTaskName" placeholder="Enter task name">
+                        </div>
+                        <div class="form-group">
+                            <label for="iDescription">Description</label>
+                            <input name="iDescription" type="text" class="form-control" id="iDescription" placeholder="Enter Description">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="btnCreate" type="button" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Viewing Selected Task-->
+    <div class="modal fade" id="viewTaskModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewTaskModalLabel">Viewing Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- View Task FORM -->
+                    <form id="view">
+                        <div class="form-group">
+                            <label for="iTaskName">Name</label>
+                            <input name="iTaskName" readonly type="text" class="form-control" id="vTaskName" placeholder="Enter task name">
+                        </div>
+                        <div class="form-group">
+                            <label for="iDescription">Description</label>
+                            <input name="iDescription" readonly type="text" class="form-control" id="vTaskDescription" placeholder="Enter Description">
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="vTaskIsComplete" onclick="return false;">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Completed
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for Updating Selected Task-->
+    <div class="modal fade" id="updateTaskModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewTaskModalLabel">Updating Task</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- update Task FORM -->
+                    <form id="updateTaskForm">
+                        <input type="hidden" name="TaskCodeID" id="uTaskCodeID">
+                        <div class="form-group">
+                            <label for="iTaskName">Name</label>
+                            <input name="Name" type="text" class="form-control" id="uTaskName" placeholder="Enter task name">
+                        </div>
+                        <div class="form-group">
+                            <label for="iDescription">Description</label>
+                            <input name="Description" type="text" class="form-control" id="uTaskDescription" placeholder="Enter Description">
+                        </div>
+                        <div class="form-check">
+                            <input name="IsComplete" class="form-check-input" type="checkbox" id="uTaskIsComplete">
+                            <label class="form-check-label" for="defaultCheck1">
+                                Completed
+                            </label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button onclick="updateTask()" id="btn_updateTask" type="button" data-dismiss="modal" class="btn btn-primary">Update</button>
+                </div>
+            </div>
+        </div>
+    </div><!-- Modal for Deleting Selected Task-->
+    <div class="modal fade" id="deleteTaskModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h2>Are you sure you want to delete Task?</h2>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn_cancel" type="button" data-dismiss="modal" class="btn btn-dark">Cancel</button>
+                    <button onclick='deleteTask(this.value)' id="btn_deleteTask" type="button" data-dismiss="modal" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>

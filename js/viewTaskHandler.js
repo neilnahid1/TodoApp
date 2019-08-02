@@ -1,11 +1,13 @@
 $(document).ready(() => {
     $('button').click((event) => {
+        alert(data);
         if (event.target.id === 'viewTask') {
             $.ajax({
                 url: "../php/view_task.php",
                 data: { TaskCodeID: event.target.value },
                 type: 'POST',
                 success: (data) => {
+                    alert(data);
                     var data = JSON.parse(data);
                     updateModalValues(data);
                 }

@@ -1,7 +1,8 @@
 <?php
 session_start();
 require('../php/helper.php');
-checkIfSessionExists();
+redirectIfNoSession();
+var_dump($_POST);
 if (!empty($_POST['TaskCodeID']) && isset($_SESSION['user'])) {
     $query = "delete from Tasks where TaskCodeID={$_POST['TaskCodeID']}";
     if (mysqli_query($link, $query)) {
