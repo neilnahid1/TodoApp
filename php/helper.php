@@ -28,3 +28,9 @@ function convertResultToJSON($result)
     }
     return json_encode($array);
 }
+function redirectIfNoSession()
+{
+    if (!isset($_SESSION['user'])) {
+        header("Location: ../php/login.php");
+    }
+}

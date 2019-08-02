@@ -10,14 +10,3 @@ function updateUser() {
         }
     });
 }
-function fetchUsersTable(){
-    $.ajax({
-        url: "../php/get_users.php",
-        data: formData,
-        type: 'POST',
-        success: (data) => {
-            var data = JSON.parse(data);
-            generateUsersTable();
-        }
-    })
-}

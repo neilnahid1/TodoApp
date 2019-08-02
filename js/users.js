@@ -11,7 +11,11 @@ function createUserRowElement(user) {
     let row = document.createElement('tr');
     for (col in user) {
         let td = document.createElement('td');
-        td.textContent = user[col];
+        if (col == "roleid") {
+            td.textContent = user[col] == 1 ? "Admin" : "User";
+        }
+        else
+            td.textContent = user[col];
         row.appendChild(td);
     }
     row.insertAdjacentHTML('beforeend', createRowFuncButtons(user.userid));
@@ -51,8 +55,49 @@ function createUserTableHeaders(userSample, table) {
 function createRowFuncButtons(UserID) {
     let dom = ` <td>
                 <button onclick='getAllUserTasks(this.value)' value='${UserID}' data-toggle='modal' id='viewUser' data-target='#viewTaskModal' class='btn btn-dark'>View Tasks</button>
-                <button value='${UserID}' data-toggle='modal' id='updateUser' data-target='#updateTaskModal' class='btn btn-dark'>Edit</button>
-                <button value='${UserID}' data-toggle='modal' id='deleteUser' data-target='#deleteTaskModal' class='btn btn-dark'>Delete</button>
+                <button onclick='fetchUserData(this.value)' value='${UserID}' data-toggle='modal' id='updateUser' data-target='#editUserModal' class='btn btn-dark'>Edit</button>
+                <button onclick='assignModalDeleteButtonValue(this.value)' value='${UserID}' data-toggle='modal' id='deleteUser' data-target='#deleteUserModal' class='btn btn-dark'>Delete</button>
                 </td>`;
     return dom;
+}
+function fetchUserData(UserID) {
+    $.ajax({
+        url: "../php/get_user.php",
+        data: { UserID: UserID },
+        type: "POST",
+        success: (data) => {
+            data = JSON.parse(data);
+            updateUserModalFields(data);
+        }
+    });
+}
+function updateUserModalFields(data) {
+    document.getElementById('UserID').value = data.UserID;
+    document.getElementById('Username').value = data.Username;
+    document.getElementById('RoleID').value = data.RoleID;
+}
+function updateUser() {
+    var formData = $('#updateUserForm').serializeArray();
+    $.ajax({
+        url: "../php/update_user.php",
+        data: formData,
+        type: "POST",
+        success: data => {
+            fetchUsersTable();
+        }
+    });
+}
+function deleteUser(UserID){
+    $.ajax({
+        url: "../php/delete_user.php",
+        data: {UserID: UserID},
+        type: "POST",
+        success: data=>{
+            alert(data);
+            fetchUsersTable();
+        }
+    })
+}
+function assignModalDeleteButtonValue(UserID){
+    document.getElementById("btn_delete").value = UserID;
 }

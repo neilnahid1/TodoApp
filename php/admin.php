@@ -42,29 +42,7 @@ $result = mysqli_query($link, $query);
             <button class='btn-primary' onclick="generateTasksTable()">Tasks Table</button></div>
     </div>
     <table id="usersTable" class="table table-striped" style="table-layout:fixed">
-        <thead class="thead-dark">
-            <th>UserID</th>
-            <th>Username</th>
-            <th>Role</th>
-            <th>Functionalities</th>
-        </thead>
-        <tbody>
-            <?php
-            while ($row = $result->fetch_assoc()) {
-                $dom = "<tr>";
-                $dom .= "<td>{$row['UserID']}</td>";
-                $dom .= "<td>{$row['Username']}</td>";
-                $dom .= "<td>" . ($row['RoleID'] == 1 ? "Admin" : "User") . "</td>";
-                $dom .= "<td>";
-                $dom .= "<button onclick='getAllUserTasks(this.value)' value='{$row['UserID']}' data-toggle='modal' id='viewUser' data-target='#viewTaskModal' class='btn btn-dark'>View Tasks</button>";
-                $dom .= "<button value='{$row['UserID']}' data-toggle='modal' id='updateUser' data-target='#updateTaskModal' class='btn btn-dark'>Edit</button>";
-                $dom .= "<button value='{$row['UserID']}' data-toggle='modal' id='deleteUser' data-target='#deleteTaskModal' class='btn btn-dark'>Delete</button>";
-                $dom .= "</td>";
-                $dom .= "</tr>";
-                echo $dom;
-            }
-            ?>
-        </tbody>
+        <!-- TABLE DATA WILL BE DYNAMICALLY GENERATED  -->
     </table>
     <!-- Modal for Viewing User Tasks -->
     <div class="modal fade" id="viewTaskModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
@@ -81,16 +59,69 @@ $result = mysqli_query($link, $query);
             </div>
         </div>
     </div>
-
+    <!-- modal for editing user -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewTaskModalLabel">Editing User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="userTasksModalBody">
+                    <form id="updateUserForm">
+                        <div class="form-group">
+                            <label for="UserID">UserID</label>
+                            <input type="text" class="form-control" name="UserID" id="UserID" placeholder="UserID" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="Username">Username</label>
+                            <input type="text" class="form-control" name="Username" id="Username" placeholder="Username">
+                        </div>
+                        <div class="form-group">
+                            <label for="Password">Password</label>
+                            <input type="password" class="form-control" name="Password" id="Password" placeholder="New Password">
+                        </div>
+                        <div class="form-group">
+                            <label for="RoleID">Role</label>
+                            <select name="RoleID" id="RoleID" class="custom-select">
+                                <option value="1">Admin</option>
+                                <option value="2">User</option>
+                            </select>
+                        </div>
+                    </form>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button onclick="updateUser()" class="btn btn-success">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- MODAL FOR DELETING USER -->
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h1>Are you sure you want to delete?</h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button id="btn_delete" onclick="deleteUser(this.value)" class="btn btn-danger">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../js/users.js"></script>
-    <script src="../js/createTaskHandler.js"></script>
-    <script src="../js/viewTaskHandler.js"></script>
-    <script src="../js/updateTaskHandler.js"></script>
-    <script src="../js/deleteTaskHandler.js"></script>
     <script src="../js/userTasks.js"></script>
+    <script src="../js/tasks.js"></script>
+    <script>
+        fetchUsersTable();
+    </script>
 </body>
 
 </html>
