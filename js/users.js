@@ -55,7 +55,7 @@ function createUserTableHeaders(userSample, table) {
 }
 function createUserRowFuncButtons(UserID) {
     let dom = ` <td>
-                <button onclick='getAllUserTasks(this.value)' value='${UserID}' data-toggle='modal' id='viewUser' data-target='#viewUserTasksModal' class='btn btn-dark'>View Tasks</button>
+                <button onclick='fetchUserTasksTable(this.value)' value='${UserID}' data-toggle='modal' id='viewUser' data-target='#viewUserTasksModal' class='btn btn-dark'>View Tasks</button>
                 <button onclick='fetchUserData(this.value)' value='${UserID}' data-toggle='modal' id='updateUser' data-target='#editUserModal' class='btn btn-dark'>Edit</button>
                 <button onclick='assignModalDeleteUserButtonValue(this.value)' value='${UserID}' data-toggle='modal' id='deleteUser' data-target='#deleteUserModal' class='btn btn-dark'>Delete</button>
                 </td>`;
