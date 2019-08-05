@@ -10,7 +10,7 @@ function convertTasksToTable(userTasks) {
     //crate theads from one userTask sample
     Object.keys(userTasks[0]).forEach(key=>{
         let th = document.createElement('th');
-        th.textContent = key;
+        th.textContent = key; 
         table.appendChild(th);
     });
     //append user tasks data as rows

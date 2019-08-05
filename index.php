@@ -34,47 +34,10 @@ $userTasks = mysqli_query($link, $query);
             </form>
         </div>
     </div>
-    <h1 class="text-center">Tasks Table</h1>
-    <table class="table table-bordered">
-        <thead class="thead-dark">
-            <th style="width:10%">TaskID</th>
-            <th style="width:50%">Name</th>
-            <th style="width:10%">Completed</th>
-            <th></th>
-        </thead>
-        <tbody>
-            <?php
-            while ($row = $userTasks->fetch_assoc()) {
-                echo "<tr id=row" . $row['TaskCodeID'] . ">";
-                echo "<td id=td_TaskCodeID>{$row['TaskCodeID']}</td>";
-                echo "<td id=td_name>{$row['Name']}</td>";
-                echo "<td class='text-center'>";
-                echo "<input id=td_IsComplete class='form-check-input' type='checkbox'" . ($row['IsComplete'] == 1 ? "checked" : "1") . " onclick='return false;'>";
-                echo "</td>";
-                //buttons
-                echo "<td>";
-                echo "<button onclick='' value='{$row['TaskCodeID']}' data-toggle='modal' id='viewTask' data-target='#viewTaskModal' class='btn btn-dark'>View</button>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='updateTask' data-target='#updateTaskModal' class='btn btn-dark'>Edit</button>";
-                echo "<button value='{$row['TaskCodeID']}' data-toggle='modal' id='deleteTask' data-target='#deleteTaskModal' class='btn btn-dark'>Delete</button>";
-                echo "</td>";
-                echo "</tr>";
-            }
-            ?>
-            <tr id="btn_NewRow">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td>
-                    <button data-toggle="modal" data-target="#createNewModal" class="btn btn-dark">New Task</button>
-                </td>
-            </tr>
-            <?php
-
-            ?>
-        </tbody>
+    <h1 id="table_name" class="text-center">Tasks Table</h1>
+    <table id="mainTable" class="table table-striped" style="table-layout:fixed">
+        <!-- TABLE DATA WILL BE DYNAMICALLY GENERATED  -->
     </table>
-
-
     <!-- Modal for Creating new task-->
     <div class="modal fade" id="createNewModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -100,7 +63,7 @@ $userTasks = mysqli_query($link, $query);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="btnCreate" type="button" class="btn btn-primary">Create</button>
+                    <button onclick="addTask()" id="btnCreate" type="button" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>
@@ -117,7 +80,7 @@ $userTasks = mysqli_query($link, $query);
                 </div>
                 <div class="modal-body">
                     <!-- View Task FORM -->
-                    <form id="addTask">
+                    <form id="view">
                         <div class="form-group">
                             <label for="iTaskName">Name</label>
                             <input name="iTaskName" readonly type="text" class="form-control" id="vTaskName" placeholder="Enter task name">
@@ -149,7 +112,7 @@ $userTasks = mysqli_query($link, $query);
                 </div>
                 <div class="modal-body">
                     <!-- update Task FORM -->
-                    <form id="update_task">
+                    <form id="updateTaskForm">
                         <input type="hidden" name="TaskCodeID" id="uTaskCodeID">
                         <div class="form-group">
                             <label for="iTaskName">Name</label>
@@ -168,7 +131,7 @@ $userTasks = mysqli_query($link, $query);
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button id="btn_update" type="button" data-dismiss="modal" class="btn btn-primary">Update</button>
+                    <button onclick="updateTask()" id="btn_updateTask" type="button" data-dismiss="modal" class="btn btn-primary">Update</button>
                 </div>
             </div>
         </div>
@@ -177,11 +140,11 @@ $userTasks = mysqli_query($link, $query);
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-body">
-                    <h2>Are you sure you want to delete User?</h2>
+                    <h2>Are you sure you want to delete Task?</h2>
                 </div>
                 <div class="modal-footer">
                     <button id="btn_cancel" type="button" data-dismiss="modal" class="btn btn-dark">Cancel</button>
-                    <button id="btn_delete" type="button" data-dismiss="modal" class="btn btn-danger">Delete</button>
+                    <button onclick='deleteTask(this.value)' id="btn_deleteTask" type="button" data-dismiss="modal" class="btn btn-danger">Delete</button>
                 </div>
             </div>
         </div>
@@ -189,11 +152,9 @@ $userTasks = mysqli_query($link, $query);
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="../js/createTaskHandler.js"></script>
-    <script src="../js/viewTaskHandler.js"></script>
-    <script src="../js/updateTaskHandler.js"></script>
-    <script src="../js/deleteTaskHandler.js"></script>
+    <script src="../js/tasks.js"></script>
     <script>
+        fetchTasksTable();
     </script>
 </body>
 

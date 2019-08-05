@@ -1,6 +1,7 @@
 function generateTasksTable(tasks) {
     let table = document.getElementById('mainTable');
-    document.getElementById('table_name').innerHTML = "Tasks Table";
+    var tableName = document.getElementById('table_name').innerHTML;
+    tableName = document.getElementById('table_name').innerHTML != null ? "Tasks Table": "";
     table.innerHTML = "";
     table.style.tableLayout = "fixed";
     if (tasks) {

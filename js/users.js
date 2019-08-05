@@ -84,6 +84,10 @@ function updateUser() {
         data: formData,
         type: "POST",
         success: data => {
+            alert(data);
+            if(data == "SUCCESS-REDIRECT"){
+                window.location.replace("../php/login.php");
+            }
             fetchUsersTable();
         }
     });

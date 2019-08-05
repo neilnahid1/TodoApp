@@ -96,7 +96,7 @@ $result = mysqli_query($link, $query);
                     </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button onclick="updateUser()" class="btn btn-success">Update</button>
+                        <button data-dismiss="modal" onclick="updateUser()" class="btn btn-success">Update</button>
                     </div>
                 </div>
             </div>
@@ -127,7 +127,7 @@ $result = mysqli_query($link, $query);
                     </button>
                 </div>
                 <div class="modal-body">
-                    CREATE NEW TASK FORM
+                    <!-- CREATE NEW TASK FORM -->
                     <form id="addTask">
                         <div class="form-group">
                             <label for="iTaskName">Name</label>
