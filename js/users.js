@@ -84,7 +84,6 @@ function updateUser() {
         data: formData,
         type: "POST",
         success: data => {
-            alert(data);
             fetchUsersTable();
         }
     });
@@ -95,7 +94,6 @@ function deleteUser(UserID) {
         data: { UserID: UserID },
         type: "POST",
         success: data => {
-            alert(data);
             fetchUsersTable();
         }
     })

@@ -6,7 +6,6 @@ if (!isset($_SESSION['user'])) {
     header("Location: ../php/login.php");
 } else if ($_SESSION['user']['RoleID'] == 1) header("Location: ../php/admin.php");
 $user = $_SESSION['user'];
-var_dump($user);
 // var_dump($user);
 $query = "select * from Tasks where userID={$user['UserID']}";
 // var_dump($query);

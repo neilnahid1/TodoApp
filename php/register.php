@@ -11,8 +11,6 @@ if (isFieldsSet($fields)) {
     } else {
         echo mysqli_error($link);
     }
-} else {
-    echo "you went bottom";
 }
 ?>
 <!DOCTYPE html>
