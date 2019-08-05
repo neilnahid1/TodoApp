@@ -56,6 +56,9 @@ $result = mysqli_query($link, $query);
                 </div>
                 <div class="modal-body" id="userTasksModalBody">
                 </div>
+                <div class="modal-footer">
+                    <button onclick="updateUser()" class="btn btn-success">Delete All Tasks</button>
+                </div>
             </div>
         </div>
     </div>
@@ -138,7 +141,7 @@ $result = mysqli_query($link, $query);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button id="btnCreate" type="button" class="btn btn-primary">Create</button>
+                    <button onclick="addTask()" id="btnCreate" type="button" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>

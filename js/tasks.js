@@ -31,7 +31,7 @@ function createTaskRowElement(task) {
         if (col == "IsComplete") {
             let isCompleteCheckbox = document.createElement("input");
             isCompleteCheckbox.type = "checkbox";
-            isCompleteCheckbox.onclick = ()=>{return false};
+            isCompleteCheckbox.onclick = () => { return false };
             isCompleteCheckbox.checked = task[col] == 1 ? true : false;
             td.appendChild(isCompleteCheckbox);
         }
@@ -107,7 +107,8 @@ function updateViewTaskModalFields(data) {
     document.getElementById("uTaskCodeID").value = data[0].TaskCodeID;
     document.getElementById("uTaskIsComplete").checked = data[0].IsComplete == 0 ? false : true;
 }
-function updateTask() {
+function updateTask(event) {
+    alert(event);   
     var formData = $('#updateTaskForm').serializeArray();
     $.ajax({
         url: "../php/update_task.php",
@@ -119,13 +120,11 @@ function updateTask() {
     });
 }
 function deleteTask(TaskCodeID) {
-    alert(TaskCodeID);
     $.ajax({
         url: "../php/delete_task.php",
         data: { TaskCodeID: TaskCodeID },
         type: "POST",
         success: data => {
-            alert(data);
             fetchTasksTable();
         }
     })
@@ -141,4 +140,16 @@ function addNewTaskButton() {
     tr.appendChild(document.createElement('td'));
     tr.insertAdjacentHTML("beforeend", `<button data-toggle="modal" data-target="#createNewModal" class="btn btn-dark">New Task</button>`);
     return tr;
+}
+function addTask() {
+    var data = $('#addTask').serializeArray(); //serialize data from modal
+    $.ajax({
+        url: "../php/add_task.php",
+        data: data,
+        type: 'POST',
+        success: (data) => {
+            var data = JSON.parse(data);
+            fetchTasksTable();
+        }
+    });
 }
