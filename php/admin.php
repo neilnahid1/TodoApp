@@ -145,7 +145,7 @@ $result = mysqli_query($link, $query);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button onclick="addTask()" id="btnCreate" type="button" class="btn btn-primary">Create</button>
+                    <button data-dismiss="modal" onclick="addTask()" id="btnCreate" type="button" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>
