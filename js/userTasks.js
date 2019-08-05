@@ -30,6 +30,7 @@ function getAllUserTasks(UserID) {
             convertTasksToTable(data);
         }
     });
+    updateModalDeleteAllTasksValue(UserID);
 }
 function createRowElement(data) {
     //create a table row element from the given data
@@ -47,4 +48,7 @@ function createRowElement(data) {
         row.appendChild(td);
     }
     return row;
+}
+function updateModalDeleteAllTasksValue(UserID){
+    document.getElementById('btn_deleteAllTasks').value = UserID;
 }

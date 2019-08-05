@@ -57,7 +57,7 @@ $result = mysqli_query($link, $query);
                 <div class="modal-body" id="userTasksModalBody">
                 </div>
                 <div class="modal-footer">
-                    <button onclick="updateUser()" class="btn btn-success">Delete All Tasks</button>
+                    <button data-dismiss="modal" onclick="deleteAllTasksFromUser(this)" id="btn_deleteAllTasks" class="btn btn-success">Delete All Tasks</button>
                 </div>
             </div>
         </div>

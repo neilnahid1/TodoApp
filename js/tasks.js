@@ -108,7 +108,6 @@ function updateViewTaskModalFields(data) {
     document.getElementById("uTaskIsComplete").checked = data[0].IsComplete == 0 ? false : true;
 }
 function updateTask(event) {
-    alert(event);   
     var formData = $('#updateTaskForm').serializeArray();
     $.ajax({
         url: "../php/update_task.php",
@@ -153,3 +152,14 @@ function addTask() {
         }
     });
 }
+
+function deleteAllTasksFromUser(sender) {
+    $.ajax({
+        url: "../php/delete_tasks.php",
+        data: { UserID: sender.value },
+        type: "POST",
+        success: (response) => {
+            fetchUsersTable();
+        }
+    });
+}   

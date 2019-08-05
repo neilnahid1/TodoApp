@@ -1,6 +1,5 @@
 $(document).ready(() => {
     $('button').click((event) => {
-        alert(data);
         if (event.target.id === 'viewTask') {
             $.ajax({
                 url: "../php/view_task.php",

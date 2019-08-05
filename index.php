@@ -4,7 +4,7 @@ require('../TodoApp/php/helper.php');
 //redirects to login if session doesn't exist
 if (!isset($_SESSION['user'])) {
     header("Location: ../php/login.php");
-} else if($_SESSION['user']['RoleID']==1) header("Location: ../php/admin.php");
+} else if ($_SESSION['user']['RoleID'] == 1) header("Location: ../php/admin.php");
 $user = $_SESSION['user'];
 var_dump($user);
 // var_dump($user);
@@ -38,10 +38,10 @@ $userTasks = mysqli_query($link, $query);
     <h1 class="text-center">Tasks Table</h1>
     <table class="table table-bordered">
         <thead class="thead-dark">
-                <th style="width:10%">TaskID</th>
-                <th style="width:50%">Name</th>
-                <th style="width:10%">Completed</th>
-                <th></th>
+            <th style="width:10%">TaskID</th>
+            <th style="width:50%">Name</th>
+            <th style="width:10%">Completed</th>
+            <th></th>
         </thead>
         <tbody>
             <?php
