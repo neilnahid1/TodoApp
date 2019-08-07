@@ -30,7 +30,7 @@ $userTasks = mysqli_query($link, $query);
             <p class="lead">Listed below are your to-do lists.</p>
             <form action="../php/logout.php">
                 <input type="hidden" name="isLoggedOut" value=>
-                <button type="submit">Logout</button>
+                <button class="btn btn-info" type="submit">Logout</button>
             </form>
         </div>
     </div>
@@ -87,7 +87,7 @@ $userTasks = mysqli_query($link, $query);
                         </div>
                         <div class="form-group">
                             <label for="iDescription">Description</label>
-                            <input name="iDescription" readonly type="text" class="form-control" id="vTaskDescription" placeholder="Enter Description">
+                            <textarea name="iDescription" readonly type="text" class="form-control" id="vTaskDescription" placeholder="Enter Description"></textarea>
                         </div>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" id="vTaskIsComplete" onclick="return false;">
@@ -120,7 +120,7 @@ $userTasks = mysqli_query($link, $query);
                         </div>
                         <div class="form-group">
                             <label for="iDescription">Description</label>
-                            <input name="Description" type="text" class="form-control" id="uTaskDescription" placeholder="Enter Description">
+                            <textarea name="Description" type="text" class="form-control" id="uTaskDescription" placeholder="Enter Description"></textarea>
                         </div>
                         <div class="form-check">
                             <input name="IsComplete" class="form-check-input" type="checkbox" id="uTaskIsComplete">

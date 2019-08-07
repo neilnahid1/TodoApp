@@ -31,6 +31,7 @@ function createUserTaskRowElement(task) {
     let row = document.createElement('tr');
     for (col in task) {
         let td = document.createElement('td');
+        td.className="text-truncate";
         if (col == "IsComplete") {
             let isCompleteCheckbox = document.createElement("input");
             isCompleteCheckbox.type = "checkbox";
@@ -160,6 +161,7 @@ function addUserTask(UserID) {
         data: data,
         type: 'POST',
         success: (data) => {
+            console.log("add_usertTask Response: "+data);
             fetchUserTasksTable(UserID);
         }
     });

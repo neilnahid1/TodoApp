@@ -4,7 +4,7 @@ session_start();
 $fields = array('TaskCodeID', 'Description', 'Name');
 if (isFieldsSet($fields) && isset($_SESSION['user'])) {
     $taskCodeID = $_POST['TaskCodeID'];
-    $description = $_POST['Description'];
+    $description = addslashes($_POST['Description']);
     $name = $_POST['Name'];
     $isComplete = isset($_POST['IsComplete']) ? 1 : 0;
     //update task
