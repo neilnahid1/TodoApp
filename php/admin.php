@@ -59,7 +59,7 @@ $result = mysqli_query($link, $query);
                         <button id="btn" data-toggle="modal" data-target="#createNewUserModal" class="btn btn-dark">New Task</button>
                         <button data-toggle="modal" data-target="#deleteAllUserTaskModal" class="btn btn-danger">Delete All Task</button>
                     </div>
-                    <table id="tbl_userTasks" class="table table-striped" style="table-layout:fixed">
+                    <table id="tbl_userTasks" class="table table-striped text-truncate" style="table-layout:fixed">
                         <!-- TABLE DATA WILL BE DYNAMICALLY GENERATED  -->
                     </table>
                 </div>
@@ -68,7 +68,7 @@ $result = mysqli_query($link, $query);
     </div>
     <!-- modal for editing user -->
     <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="viewTaskModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="viewTaskModalLabel">Editing User</h5>

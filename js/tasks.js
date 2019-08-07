@@ -29,6 +29,7 @@ function createTaskRowElement(task) {
     let row = document.createElement('tr');
     for (col in task) {
         let td = document.createElement('td');
+        td.className="text-truncate";
         if (col == "IsComplete") {
             let isCompleteCheckbox = document.createElement("input");
             isCompleteCheckbox.type = "checkbox";
