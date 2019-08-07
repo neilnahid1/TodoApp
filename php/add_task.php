@@ -2,8 +2,8 @@
 session_start();
 require('../php/helper.php');
 if (!empty($_POST['iTaskName']) && isset($_SESSION['user'])) {
-    $taskName = $_POST['iTaskName'];
-    $description = $_POST['iDescription'];
+    $taskName = addslashes($_POST['iTaskName']);
+    $description = addslashes($_POST['iDescription']);
     $user = $_SESSION['user'];
     $query = "insert into Tasks(Name,Description,UserID,IsComplete)values('$taskName','$description',{$user['UserID']},0)";
     if (mysqli_query($link, $query)) {

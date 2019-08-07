@@ -5,7 +5,7 @@ $fields = array('TaskCodeID', 'Description', 'Name');
 if (isFieldsSet($fields) && isset($_SESSION['user'])) {
     $taskCodeID = $_POST['TaskCodeID'];
     $description = addslashes($_POST['Description']);
-    $name = $_POST['Name'];
+    $name = addslashes($_POST['Name']);
     $isComplete = isset($_POST['IsComplete']) ? 1 : 0;
     //update task
     $query = "update Tasks set name='$name', description='$description',isComplete=$isComplete where taskcodeID=$taskCodeID";
