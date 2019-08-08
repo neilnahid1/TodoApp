@@ -1,5 +1,5 @@
 <?php
-$link = mysqli_connect('127.0.0.1', 'root', '!mrniceknight1', 'todo');
+$link = mysqli_connect('127.0.0.1', 'root', '', 'todo');
 function isFieldsSet($fields)
 {
     foreach ($fields as $field) {

@@ -6,4 +6,4 @@ create table Tasks(
     UserID int,
     IsComplete boolean,
     foreign key(UserID) references Users(UserID)
-)
+);
