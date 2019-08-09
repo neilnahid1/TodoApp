@@ -1,6 +1,6 @@
 function generateUsersTable(users) {
     //Users is an array of JSON objects
-    document.getElementById('table_name').innerHTML = "Users Table";
+    // document.getElementById('table_name').innerHTML = "Users Table";
     let table = document.getElementById('mainTable');
     table.innerHTML = "";
     table.style.tableLayout = "fixed";
@@ -29,9 +29,10 @@ function createUserTableRows(users, table) {
 }
 function fetchUsersTable() {
     $.ajax({
-        url: "../php/get_users.php",
+        url: "../php/users/get_users.php",
         type: 'POST',
         success: (data) => {
+            alert(data);
             var data = JSON.parse(data);
             generateUsersTable(data);
         }
