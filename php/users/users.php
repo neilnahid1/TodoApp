@@ -15,7 +15,7 @@ function addUser($data)
     if (mysqli_query($link, $query)) {
         echo "Successfully Registered.";
     } else {
-        echo mysqli_error($link);
+        echo mysqli_errno($link) . ": " . mysqli_error($link);
     }
 }
 function updateUser($data)
@@ -34,7 +34,7 @@ function updateUser($data)
     if (mysqli_query($link, $query)) {
         echo "Successfully updated";
     } else {
-        echo mysqli_error($link);
+        echo mysqli_errno($link);
     }
 }
 function deleteUser($UserID)
