@@ -61,7 +61,7 @@ function getUser($UserID)
 function getUsers()
 {
     global $link;
-    $query = "select userid,firstname,lastname, from Users where roleid=2";
+    $query = "select userid,firstname,lastname from Users where roleid=2";
     $result = mysqli_query($link, $query);
     if (mysqli_errno($link)) {
         echo mysqli_error($link);
