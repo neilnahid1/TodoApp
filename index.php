@@ -1,4 +1,7 @@
 <?php
+session_start();
+require('../TodoApp/php/helper.php');
+redirectIfNoSession();
 ?>
 <!DOCTYPE html>
 <html lang="en">

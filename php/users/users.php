@@ -5,13 +5,13 @@ function addUser($data)
 {
     //$data may be $_GET, $_POST, depending on the request type
     global $link;
-    $username = $data['username'];
-    $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+    $username = $data['Username'];
+    $hashedPassword = password_hash($data['Password'], PASSWORD_BCRYPT);
     $firstName = $data['FirstName'];
     $lastName = $data['LastName'];
     $address = $data['Address'];
     $email = $data['EmailAddress'];
-    $query = "insert into Users(username,password,fname,lname,address,emailaddress,roleID) values('$username','$hashedPassword',2);";
+    $query = "insert into Users(username,password,firstname,lastname,address,emailaddress,roleID) values('$username','$hashedPassword','$firstName','$lastName','$address','$email',2);";
     if (mysqli_query($link, $query)) {
         echo "Successfully Registered.";
     } else {
@@ -28,7 +28,7 @@ function updateUser($data)
     $lastName = $data['LastName'];
     $address = $data['Address'];
     $email = $data['EmailAddress'];
-    $roleID = $data['roleID'];
+    $roleID = $data['RoleID'];
     $userID = data['UserID'];
     $query = "update Users set username='$username',password='$hashedPassword',firstname='$firstName',lastname='$lastName', address='$address',emailaddress='$email',roleID=$roleID where userid=$userID";
     if (mysqli_query($link, $query)) {

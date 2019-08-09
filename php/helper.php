@@ -1,13 +1,19 @@
 <?php
-function isFieldsSet($fields)
+function isFieldsSet($data)
 {
-    foreach ($fields as $field) {
-        if (!empty($_POST[$field]) && isset($_POST[$field])) {
-            continue;
-        } else
-            return false;
+    foreach ($data as $key => $value) {
+        if (empty($data[$key])) {
+           return false; die;
+        }
+        return true;
     }
-    return true;
+    // foreach ($fields as $field) {
+    //     if (!empty($_POST[$field]) && isset($_POST[$field])) {
+    //         continue;
+    //     } else
+    //         return false;
+    // }
+    // return true;
 }
 function getRoleID($roleName, $link)
 {
@@ -30,6 +36,6 @@ function convertResultToJSON($result)
 function redirectIfNoSession()
 {
     if (!isset($_SESSION['user'])) {
-        header("Location: ../php/login.php");
+        header("Location: ../login.php");
     }
 }
