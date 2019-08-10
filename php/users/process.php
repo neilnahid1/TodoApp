@@ -1,6 +1,5 @@
 <?php 
 require('./users.php');
-var_dump($_POST);
 switch($_POST['Type']){
     case "addUser":
     if(isFieldsSet($_POST)){
@@ -9,5 +8,8 @@ switch($_POST['Type']){
         else{
             echo "passwords doesn't match";
         }
+    }
+    else{
+        echo "You must provide all fields.";
     }
 }

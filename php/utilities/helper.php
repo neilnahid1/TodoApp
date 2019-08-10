@@ -5,8 +5,8 @@ function isFieldsSet($data)
         if (empty($data[$key])) {
            return false; die;
         }
-        return true;
     }
+    return true;
     // foreach ($fields as $field) {
     //     if (!empty($_POST[$field]) && isset($_POST[$field])) {
     //         continue;
@@ -38,4 +38,14 @@ function redirectIfNoSession()
     if (!isset($_SESSION['user'])) {
         header("Location: ../login.php");
     }
+}
+function printError(mysqli $link){
+    echo $link->errno . " ". $link->error;
+}
+function convertResultToAssoc($result){
+    $array = array();
+    while ($row = $result->fetch_assoc()) {
+        $array[] = $row;
+    }
+    return $array;
 }

@@ -38,12 +38,12 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome to my Todo App!</h1>
                   </div>
-                  <form class="user">
+                  <form id="loginForm" class="user">
                     <div class="form-group">
-                      <input type="EmailAddress" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter username">
+                      <input name="Username" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter username">
                     </div>
                     <div class="form-group">
-                      <input type="Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                      <input name="Password" type="Password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -51,9 +51,8 @@
                         <label class="custom-control-label" for="customCheck">Remember Me</label>
                       </div>
                     </div>
-                    <a href="index.php" class="btn btn-primary btn-user btn-block">
-                      Login
-                    </a>
+                    <p class="text-danger"id="responseMessage"></p>
+                    <button type="button" onclick="authenticate()" class="btn btn-primary btn-user btn-block">Login</button>
                     <hr>
                   </form>
                   <div class="text-center">
@@ -72,7 +71,6 @@
     </div>
 
   </div>
-
   <!-- Bootstrap core JavaScript-->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -82,7 +80,16 @@
 
   <!-- Custom scripts for all pages-->
   <script src="js/sb-admin-2.min.js"></script>
-
+  <script>
+    function authenticate(){
+      let formData = $('#loginForm').serializeArray();
+      $.post("../php/authenticate.php",formData,(data)=>{
+        if(data == "Successfully Logged In")
+        window.location.href = "../index.php";
+        document.getElementById("responseMessage").innerHTML = data;
+      });
+    }
+  </script>
 </body>
 
 </html>

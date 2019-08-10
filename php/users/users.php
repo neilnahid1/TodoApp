@@ -1,6 +1,6 @@
 <?php
 require('../config.php');
-require('../helper.php');
+require('../utilities/helper.php');
 function addUser($data)
 {
     //$data may be $_GET, $_POST, depending on the request type
@@ -15,7 +15,7 @@ function addUser($data)
     if (mysqli_query($link, $query)) {
         echo "Successfully Registered.";
     } else {
-        echo mysqli_errno($link) . ": " . mysqli_error($link);
+        echo "ERROR CODE: ".mysqli_errno($link);
     }
 }
 function updateUser($data)
@@ -47,7 +47,7 @@ function deleteUser($UserID)
         echo mysqli_error($link);
     }
 }
-function getUser($UserID)
+function getUseById(int $UserID)
 {
     global $link;
     $query = "select * from Users where userid=$UserID";
