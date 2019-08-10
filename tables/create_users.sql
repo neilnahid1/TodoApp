@@ -4,7 +4,7 @@ create table Users(
     FirstName varchar(45) not null,
     LastName varchar(45) not null,
     Address varchar(255) not null,
-    EmailAddress varchar(255) not null,
+    EmailAddress varchar(255) not null unique,
     IsEmailVerified boolean default 0,
     Username varchar(45) unique not null,
     Password varchar(255) not null,

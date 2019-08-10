@@ -49,3 +49,16 @@ function convertResultToAssoc($result){
     }
     return $array;
 }
+function sendEmailVerification($emailAddress){
+    $subject="Complete Registration: Todo App";
+    $message = "Thank you for using the Todo app! Click on the link below to complete your registration\n
+    localhost:3000/activate.php?activationCode=". uniqid();
+    // mail($emailAddress,$subject,$message);
+}
+function verifyEmail($code){
+    global $link;
+
+}
+function addActivationRequest($emailAddress){
+
+}
