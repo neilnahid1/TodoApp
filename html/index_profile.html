@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<!-- Custom fonts for this template-->
+<link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+
+<!-- Custom styles for this template-->
+<link href="../css/sb-admin-2.min.css" rel="stylesheet">
+<p class="h1 text-center">Viewing User Profile</p>
+<form class="user" action="javascript: updateUserProfile()" id="userProfile">
+    <input type="text" hidden name="Type" value="updateUser">
+    <input type="text" hidden name="UserID" id="UserID">
+    <div class="row">
+        <div class="col-2">
+                <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">User Role</label>
+                        </div>
+                        <select class="custom-select" name="RoleID" id="RoleID">
+                            <option selected>Choose...</option>
+                            <option value="1">Admin</option>
+                            <option value="2">User</option>
+                        </select>
+                    </div>
+        </div>
+      
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">First name</label>
+            <input id="FirstName" name="FirstName" type="text" required class="form-control" id="inputEmail4"
+                placeholder="First name">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputPassword4">Last name</label>
+            <input id="LastName" name="LastName" type="text" required class="form-control" id="inputPassword4"
+                placeholder="Last name">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword4">Address</label>
+        <input id="Address" name="Address" type="text" required class="form-control" id="inputPassword4"
+            placeholder="Address">
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputEmail4">Username</label>
+            <input id="Username" name="Username" type="text" required class="form-control" id="inputEmail4"
+                placeholder="Username">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputPassword4">Change Password</label>
+            <input id="Password" name="Password" type="password" class="form-control" id="inputPassword4"
+                placeholder="Password">
+        </div>
+        <div class="form-group col-md-3">
+            <label for="inputPassword4">Confirm Password</label>
+            <input id="ConfirmPassword" name="ConfirmPassword" type="password" class="form-control" id="inputPassword4"
+                placeholder="Confirm Password">
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inputPassword4">Email Address</label>
+        <input id="EmailAddress" name="EmailAddress" readonly type="email" required class="form-control"
+            id="inputPassword4" placeholder="Email Address">
+    </div>
+
+    <p class="text-danger" id='response'></p>
+    <button type="submit" style="float:right" class="btn btn-success btn-user">Save Changes</button>
+</form>

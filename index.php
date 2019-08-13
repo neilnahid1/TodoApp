@@ -2,6 +2,7 @@
 session_start();
 require('../TodoApp/php/utilities/helper.php');
 redirectIfNoSession();
+$user = $_SESSION['user'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -78,7 +79,6 @@ redirectIfNoSession();
 
             <!-- Main Content -->
             <div id="content">
-
                 <!-- Topbar -->
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
@@ -112,12 +112,12 @@ redirectIfNoSession();
                         <!-- Nav Item - User Information -->
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{First name Last name}</span>
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?= $user['FirstName'] . " " . $user['LastName'] ?></span>
                                 <img class="img-profile rounded-circle" src="https://image.flaticon.com/icons/svg/660/660768.svg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a onclick="loadUserProfile()" class="dropdown-item">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Profile
                                 </a>
@@ -134,16 +134,14 @@ redirectIfNoSession();
                         </li>
 
                     </ul>
-
                 </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
+                <div class="container-fluid" id="pageContent">
                     <table class='table' id='mainTable'></table>
                 </div>
                 <!-- /.container-fluid -->
-
             </div>
             <!-- End of Main Content -->
 
@@ -193,10 +191,32 @@ redirectIfNoSession();
 
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
     <script src="js/users.js"></script>
+    <script>
+        function loadUserProfile() {
+            $('#pageContent').load("../html/index_profile.html", () => {
+                document.getElementById("FirstName").value = '<?= $user['FirstName'] ?>';
+                document.getElementById("UserID").value = '<?= $user['UserID'] ?>';
+                document.getElementById("RoleID").value = '<?= $user['RoleID'] ?>';
+                document.getElementById("LastName").value = '<?= $user['LastName'] ?>';
+                document.getElementById("Username").value = '<?= $user['Username'] ?>';
+                document.getElementById("Address").value = '<?= $user['Address'] ?>';
+                document.getElementById("EmailAddress").value = '<?= $user['EmailAddress'] ?>';
+            });
+        }
+
+        function updateUserProfile() {
+            let formData = $('#userProfile').serializeArray();
+            $.post("../php/users/process.php", formData, (res) => {
+                document.getElementById('response').innerHTML = res;
+                if(res=="Successfully updated, redirecting now..."){
+                    window.location.href="login.php";
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>

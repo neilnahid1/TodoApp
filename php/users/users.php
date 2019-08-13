@@ -30,10 +30,20 @@ function updateUser($data)
     $address = $data['Address'];
     $email = $data['EmailAddress'];
     $roleID = $data['RoleID'];
-    $userID = data['UserID'];
+    $userID = $data['UserID'];
     $query = "update Users set username='$username',password='$hashedPassword',firstname='$firstName',lastname='$lastName', address='$address',emailaddress='$email',roleID=$roleID where userid=$userID";
     if (mysqli_query($link, $query)) {
-        echo "Successfully updated";
+        $query = "select * from Users where userid=$userID";
+        $result = mysqli_query($link,$query)->fetch_assoc();
+        session_start();
+        if(empty($data['Password'])){
+            $_SESSION['user'] = $result;
+            echo "Successfully Updated.";
+        }
+        else{
+            $_SESSION['user'] = $result;
+            echo "Successfully updated, redirecting now...";
+        }
     } else {
         printError($link);
     }
