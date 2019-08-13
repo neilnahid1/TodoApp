@@ -38,7 +38,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Welcome to my Todo App!</h1>
                   </div>
-                  <form id="loginForm" class="user">
+                  <form id="loginForm" action="javascript: authenticate()" class="user">
                     <div class="form-group">
                       <input name="Username" type="text" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter username">
                     </div>
@@ -52,7 +52,7 @@
                       </div>
                     </div>
                     <p class="text-danger"id="responseMessage"></p>
-                    <button type="button" onclick="authenticate()" class="btn btn-primary btn-user btn-block">Login</button>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">Login</button>
                     <hr>
                   </form>
                   <div class="text-center">
@@ -84,8 +84,10 @@
     function authenticate(){
       let formData = $('#loginForm').serializeArray();
       $.post("../php/authenticate.php",formData,(data)=>{
-        if(data == "Successfully Logged In")
-        window.location.href = "../index.php";
+        if(data == "Successfully Logged In"){
+          window.location.href = "../index.php";
+          exit();
+        } 
         document.getElementById("responseMessage").innerHTML = data;
       });
     }

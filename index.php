@@ -1,7 +1,6 @@
 <?php
 session_start();
 require('../TodoApp/php/utilities/helper.php');
-// session_destroy();
 redirectIfNoSession();
 ?>
 <!DOCTYPE html>

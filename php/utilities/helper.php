@@ -35,7 +35,7 @@ function convertResultToJSON($result)
 }
 function redirectIfNoSession()
 {
-    if (!isset($_SESSION['user'])) {
+    if (empty($_SESSION)) {
         header("Location: ../login.php");
     }
 }

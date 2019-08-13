@@ -5,15 +5,15 @@ if (isFieldsSet($_POST)) {
     global $link;
     $username = $_POST['Username'];
     $password = $_POST['Password'];
-    $query = "select * from users where username='$username'";
+    $query = "select * from users where username='$username' and IsEmailVerified=1";
     $res = mysqli_query($link, $query);
     if (mysqli_errno($link)) {
         printError($link);
         die;
     } else {
         if (mysqli_num_rows($res) > 0) {
-            $res = convertResultToAssoc($res);
-            if (password_verify($password, $res[0]['Password'])) {
+            $res = $res->fetch_assoc();
+            if (password_verify($password, $res['Password'])) {
                 session_start();
                 $_SESSION['user'] = $res;
                 echo "Successfully Logged In";
@@ -21,7 +21,7 @@ if (isFieldsSet($_POST)) {
                 echo "Incorrect password";
             }
         } else {
-            echo "User does not exist!";
+            echo "User not exist/verified!";
         }
     }
 } else {
