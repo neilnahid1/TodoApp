@@ -14,7 +14,7 @@ function addUser($data)
     $activationCode = uniqid($username);
     $query = "insert into Users(username,password,firstname,lastname,address,emailaddress,roleID,activationCode) values('$username','$hashedPassword','$firstName','$lastName','$address','$email',2,'$activationCode');";
     if (mysqli_query($link, $query)) {
-        sendEmailVerification(mysqli_insert_id($link),$email,$activationCode);
+        sendEmailVerification(mysqli_insert_id($link), $email, $activationCode);
     } else {
         printError($link);
     }
@@ -34,13 +34,12 @@ function updateUser($data)
     $query = "update Users set username='$username',password='$hashedPassword',firstname='$firstName',lastname='$lastName', address='$address',emailaddress='$email',roleID=$roleID where userid=$userID";
     if (mysqli_query($link, $query)) {
         $query = "select * from Users where userid=$userID";
-        $result = mysqli_query($link,$query)->fetch_assoc();
+        $result = mysqli_query($link, $query)->fetch_assoc();
         session_start();
-        if(empty($data['Password'])){
+        if (empty($data['Password']) || $userID != $_SESSION['user']['UserID']) {
             $_SESSION['user'] = $result;
             echo "Successfully Updated.";
-        }
-        else{
+        } else {
             $_SESSION['user'] = $result;
             echo "Successfully updated, redirecting now...";
         }
@@ -72,7 +71,7 @@ function getUseById(int $UserID)
 function getUsers()
 {
     global $link;
-    $query = "select userid,firstname,lastname from Users where roleid=2";
+    $query = "select userid,firstname,lastname,address,username,emailaddress,roleid from Users where roleid=2";
     $result = mysqli_query($link, $query);
     if (mysqli_errno($link)) {
         echo mysqli_error($link);
@@ -80,12 +79,15 @@ function getUsers()
         echo convertResultToJSON($result);
     }
 }
-function sendEmailVerification($userid,$emailAddress,$activationCode){
+function sendEmailVerification($userid, $emailAddress, $activationCode)
+{
     global $link;
-    $subject="Complete Registration: Todo App";
+    $subject = "Complete Registration: Todo App";
     $message = "Thank you for using the Todo app! Click on the link below to complete your registration\n
     http://localhost:3000/activate.php?activationCode=$activationCode";
-    $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
-    mail($emailAddress,$subject,$message,$header);
+    $headers =  'MIME-Version: 1.0' . "\r\n";
+    $headers .= 'From: Your name <info@address.com>' . "\r\n";
+    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    mail($emailAddress, $subject, $message, $headers);
     echo "A verification link was sent to your email address.";
 }

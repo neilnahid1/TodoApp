@@ -24,6 +24,10 @@ $user = $_SESSION['user'];
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
 
+    <!-- Datatables styles -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/sl-1.3.0/datatables.min.css" />
+
+
 </head>
 
 <body id="page-top">
@@ -58,15 +62,18 @@ $user = $_SESSION['user'];
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item" onclick="fetchUsersTable()">
-                <a class="nav-link">
-                    <i class="fas fa-fw fa-user"></i>
-                    <span>Users</span></a>
-            </li>
+            <?php
+            if ($_SESSION['user']['RoleID'] == 1)
+                echo "<li class='nav-item' onclick='fetchUsersTable()''>
+                        <a class='nav-link'>
+                        <i class='fas fa-fw fa-user'></i>
+                        <span>Users</span></a>
+                      </li>";
+            ?>
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="tables.html">
+                <a class="nav-link" href="#">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Tasks</span>
                 </a>
@@ -184,7 +191,80 @@ $user = $_SESSION['user'];
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="modal_User" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- MODAL BODY -->
+                    <form class="user" action="javascript: updateUserProfile()" id="userProfile">
+                        <input type="text" hidden name="Type" value="updateUser">
+                        <input type="text" hidden name="UserID" id="UserID">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="inputGroupSelect01">User Role</label>
+                                    </div>
+                                    <select class="custom-select" name="RoleID" id="RoleID">
+                                        <option selected>Choose...</option>
+                                        <option value="1">Admin</option>
+                                        <option value="2">User</option>
+                                    </select>
+                                </div>
+                            </div>
 
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">First name</label>
+                                <input id="FirstName" name="FirstName" type="text" required class="form-control" id="inputEmail4" placeholder="First name">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="inputPassword4">Last name</label>
+                                <input id="LastName" name="LastName" type="text" required class="form-control" id="inputPassword4" placeholder="Last name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword4">Address</label>
+                            <input id="Address" name="Address" type="text" required class="form-control" id="inputPassword4" placeholder="Address">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Username</label>
+                                <input id="Username" name="Username" type="text" required class="form-control" id="inputEmail4" placeholder="Username">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputPassword4">Change Password</label>
+                                <input id="Password" name="Password" type="password" class="form-control" id="inputPassword4" placeholder="Password">
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label for="inputPassword4">Confirm Password</label>
+                                <input id="ConfirmPassword" name="ConfirmPassword" type="password" class="form-control" id="inputPassword4" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputPassword4">Email Address</label>
+                            <input id="EmailAddress" name="EmailAddress" readonly type="email" required class="form-control" id="inputPassword4" placeholder="Email Address">
+                        </div>
+
+                        <p class="text-danger" id='response'></p>
+                        <button type="submit" style="float:right" class="btn btn-success btn-user">Save Changes</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -193,7 +273,10 @@ $user = $_SESSION['user'];
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    <script src="js/users.js"></script>
+    <script src="../js/table_generator.js"></script>
+    <script src="../js/users.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/sl-1.3.0/datatables.min.js"></script>
+
     <script>
         function loadUserProfile() {
             $('#pageContent').load("../html/index_profile.html", () => {
@@ -207,14 +290,8 @@ $user = $_SESSION['user'];
             });
         }
 
-        function updateUserProfile() {
-            let formData = $('#userProfile').serializeArray();
-            $.post("../php/users/process.php", formData, (res) => {
-                document.getElementById('response').innerHTML = res;
-                if(res=="Successfully updated, redirecting now..."){
-                    window.location.href="login.php";
-                }
-            });
+        function fetchUsersTable() {
+            $('#pageContent').load("../html/index_users.html");
         }
     </script>
 </body>

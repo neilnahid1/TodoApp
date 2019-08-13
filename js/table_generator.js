@@ -4,17 +4,30 @@
  */
 function generateTable(JSONData){
      var table = document.createElement("table");
-     //create a table header of of the JSONData
+     table.className = "table table-striped";
+     table.id = "table";
+    //  table.style.width = "100%";
+     //THEAD START
+     let thead = document.createElement("thead");
+     thead.className = "thead-dark";
+     let tr = document.createElement("tr");
+     thead.appendChild(tr);
      var headers = createTableHeadersFrom(JSONData);
-     //append each header to the table object.
      headers.forEach(header => {
-         table.appendChild(header);
+         tr.appendChild(header);
      });
-    //  //populate the table with rows from JSONData
+     table.appendChild(thead);
+     //THEAD END
+     
+     //TBODY START
+     let tbody = document.createElement("tbody");
+     tbody.className = "tbody";
+     //populate the table with rows from JSONData
       var rows = createRowsFrom(JSONData);
       rows.forEach(row=>{
-          table.appendChild(row);
+          tbody.appendChild(row);
       });
+      table.appendChild(tbody);
     return table;
 }
 function createTableHeadersFrom(JSONData){
@@ -28,15 +41,16 @@ function createTableHeader(name){
     return th;
 }
 function createRowsFrom(JSONData){
-    var tableRows = JSONData.map(createRow);
+    let tableRows = JSONData.map(createRow);
     return tableRows;
 }
 function createRow(row){
     //row is a JSON object
-    var tr = document.createElement("tr");
+    let tr = document.createElement("tr");
     for(key in row){
         var td = document.createElement("td");
         td.textContent = row[key];
+        td.className = "text-truncate";
         tr.appendChild(td);
     }
     return tr;

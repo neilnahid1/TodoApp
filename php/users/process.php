@@ -19,5 +19,15 @@ switch ($_POST['Type']) {
         } else
             echo "Make sure to fill all required fields";
         break;
-        default: echo "went to default case user.process.php";
+    case "getUsers":
+        getUsers();
+        break;
+    case "deleteUser":
+        if (isFieldsSet($_POST))
+            deleteUser($_POST['UserID']);
+        else
+            echo "UserID must be supplied";
+        break;
+    default:
+        echo "went to default case user.process.php";
 }
