@@ -1,4 +1,21 @@
 <?php
+require('../TodoApp/php/utilities/helper.php');
+require('../TodoApp/php/config.php');
+if (isFieldsSet($_GET)) {
+    $activationCode = $_GET['activationCode'];
+    $query = "select * from users where activationCode='$activationCode'";
+    $result = mysqli_query($link, $query);
+    if (mysqli_num_rows($result)) {
+
+        $message = "Successfully Activated Account";
+        $query = "update users set isemailverified=1 where activationCode='$activationCode'";
+        mysqli_query($link, $query);
+        mysqli_errno($link) ? printError($link) : "Okay";
+    } else {
+        // printError($link);
+        $message = "Invalid Code";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,13 +39,17 @@
 
 <body>
     <div class="col text-center">
-        <h1>Activate account of nahidnoriel@gmail.com</h1>
-    </div>
-    <div class="col text-center">
-        <button class="btn btn-success">Activate Account</button>
+        <h1 id="message"><?= $message ?></h1>
+        <div class="text-center">
+            <a class="small" href="login.php">Proceed to login</a>
+        </div>
     </div>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function activate() {}
+    </script>
 </body>
+
 </html>

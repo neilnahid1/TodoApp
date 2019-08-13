@@ -11,11 +11,12 @@ function addUser($data)
     $lastName = $data['LastName'];
     $address = $data['Address'];
     $email = $data['EmailAddress'];
-    $query = "insert into Users(username,password,firstname,lastname,address,emailaddress,roleID) values('$username','$hashedPassword','$firstName','$lastName','$address','$email',2);";
+    $activationCode = uniqid($username);
+    $query = "insert into Users(username,password,firstname,lastname,address,emailaddress,roleID,activationCode) values('$username','$hashedPassword','$firstName','$lastName','$address','$email',2,'$activationCode');";
     if (mysqli_query($link, $query)) {
-        echo "Successfully Registered.";
+        sendEmailVerification(mysqli_insert_id($link),$email,$activationCode);
     } else {
-        echo "ERROR CODE: ".mysqli_errno($link);
+        printError($link);
     }
 }
 function updateUser($data)
@@ -34,7 +35,7 @@ function updateUser($data)
     if (mysqli_query($link, $query)) {
         echo "Successfully updated";
     } else {
-        echo mysqli_errno($link);
+        printError($link);
     }
 }
 function deleteUser($UserID)
@@ -68,4 +69,13 @@ function getUsers()
     } else {
         echo convertResultToJSON($result);
     }
+}
+function sendEmailVerification($userid,$emailAddress,$activationCode){
+    global $link;
+    $subject="Complete Registration: Todo App";
+    $message = "Thank you for using the Todo app! Click on the link below to complete your registration\n
+    http://localhost:3000/activate.php?activationCode=$activationCode";
+    $header = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/plain; charset=UTF-8' . "\r\n";
+    mail($emailAddress,$subject,$message,$header);
+    echo "A verification link was sent to your email address.";
 }

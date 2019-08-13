@@ -64,7 +64,7 @@
                       </div>
                     </div>
                     <p class="text-danger" id="responseMessage"></p>
-                    <button onclick="register()" type="submit" class="btn btn-primary btn-user btn-block">Register</button>
+                    <button type="submit" class="btn btn-primary btn-user btn-block">Register</button>
                   </form>
                   <hr>
                   <div class="text-center">
@@ -98,8 +98,8 @@
         let formData = $('#registerForm').serializeArray();
         $.post("../php/users/process.php", formData, (data) => {
           let errorP = document.getElementById("responseMessage");
-          if (data == "ERROR CODE: 1062") {
-            errorP.innerHTML = "Username already exists!";
+          if (data == "1062 Duplicate entry ") {
+            errorP.innerHTML = "Username/Email already exists!";
             return;
           }
           errorP.innerHTML = data;
