@@ -1,6 +1,6 @@
 <div class="col-12">
     <button id="btn_addTask" data-toggle="modal" data-target="#modal_addTask" class="btn btn-primary">Add</button>
-    <button onclick="generateTaskItemElements()" id="btn_editTask" data-toggle="modal" data-target="#modal_editTask" class="btn btn-primary">Edit</button>
+    <button id="btn_editTask" data-toggle="modal" data-target="#modal_editTask" class="btn btn-primary">Edit</button>
     <button id="btn_deleteTask" data-toggle="modal" data-target="#modal_deleteTask"
         class="btn btn-primary">Delete</button>
 </div>
@@ -39,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onclick="addTask()" type="button" class="btn btn-primary">Add Task</button>
+                <button onclick="addTask()" type="button" data-dismiss="modal" class="btn btn-primary">Add Task</button>
             </div>
         </div>
     </div>
@@ -61,13 +61,13 @@
                     <div class="form-group row">
                         <label for="Name" class="col-sm-3 col-form-label">Task name</label>
                         <div class="col-sm-9">
-                            <input name="Name" type="text" class="form-control" id="Name" placeholder="Name">
+                            <input name="Name" type="text" class="form-control" id="eName" placeholder="Name">
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="Description" class="col-sm-3 col-form-label">Description</label>
                         <div class="col-sm-9">
-                            <textarea name="Description" type="text" class="form-control" id="Description"
+                            <textarea name="Description" type="text" class="form-control" id="eDescription"
                                 placeholder="Description"></textarea>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button onclick="addTask()" type="button" class="btn btn-primary">Add Task</button>
+                <button type="button" class="btn btn-primary">Update Task</button>
             </div>
         </div>
     </div>

@@ -201,7 +201,6 @@ $user = $_SESSION['user'];
     <script src="../js/table_generator.js"></script>
     <script src="../js/users.js"></script>
     <script src="/js/tasks.js"></script>
-    <script src="/js/taskItems.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/sl-1.3.0/datatables.min.js"></script>
 
     <script>
@@ -224,7 +223,7 @@ $user = $_SESSION['user'];
         function fetchTasksTable() {
             $('#pageContent').load("../html/index_tasks.html", () => {
                 document.getElementById('UserID').value = <?= $user['UserID'] ?>;
-                document.getElementById('UserID').value = <?= $user['UserID'] ?>;
+                document.getElementById('eUserID').value = <?= $user['UserID'] ?>;
             });
         }
     </script>

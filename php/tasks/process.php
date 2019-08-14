@@ -17,9 +17,9 @@ switch ($_POST['Type']) {
         if (mysqli_errno($link)) {
             printError($link);
             echo "source: tasks.process.php";
-        } else {
+        } else
             echo "Successfully added task";
-        }
+
         break;
     case "deleteTask":
         deleteTask($_POST['TaskCodeID']);
@@ -27,21 +27,20 @@ switch ($_POST['Type']) {
     case "getTaskItems":
         if (!empty($_POST['TaskCodeID']))
             getTaskItems($_POST['TaskCodeID']);
-        else {
+        else
             echo "TaskCode invalid";
-        }
+        break;
     case "updateTask":
-        if (isset($_POST['Name']) && isset($_POST['Desciprtion'])) {
+        if (isset($_POST['Name']) && isset($_POST['Desciprtion']))
             updateTask($_POST);
-        }
         if (isset($_POST['TaskItems'])) {
             foreach ($_POST['TaskItems'] as $item) {
                 updateTaskItem($item);
             }
             echo "Successfully Updated";
-        } else {
+        } else
             echo "There is no Task Items to update.";
-        }
+        break;
     default:
         echo "default case task.process.php";
 }
