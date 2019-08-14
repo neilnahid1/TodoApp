@@ -1,12 +1,12 @@
 <div class="col-12">
-    <button id="btn_editUser" onclick="getSelectedRowData()" data-toggle="modal" data-target="#modal_User" class="btn btn-info">Edit</button>
+    <button id="btn_editUser" data-toggle="modal" data-target="#modal_User" class="btn btn-info">Edit</button>
     <button id="btn_deleteUser" data-toggle="modal" data-target="#modal_DeleteUser" class="btn btn-danger">Delete</button>
 </div>
 <div class="table-responsive" id="userTable">
     <script>getUsers();</script>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="modal_User" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal" id="modal_User" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -77,7 +77,7 @@
                     </div>
 
                     <p class="text-danger" id='response'></p>
-                    <button type="submit" style="float:right" class="btn btn-success btn-user">Save Changes</button>
+                    <button id="btn_updateChanges" data-dismiss="modal" type="button" style="float:right" class="btn btn-success btn-user">Save Changes</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -100,7 +100,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button  type="button" class="btn btn-danger">Yes</button>
+              <button id="btn_confirmDeleteUser" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
             </div>
           </div>
         </div>

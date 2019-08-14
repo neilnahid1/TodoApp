@@ -15,7 +15,7 @@ function applyDataTables() {
         let data = tbl.row({ selected: true }).data();
         populateUserModalFields(data);
     });
-    $('#btn_confirmDelete').click(e => {
+    $('#btn_confirmDeleteUser').click(e => {
         let data = tbl.row({ selected: true }).data();
         deleteUser(data[0]);
     });
@@ -26,9 +26,10 @@ function applyDataTables() {
 
 function updateUserProfile() {
     let formData = $('#userProfile').serializeArray();
+    formData.push({ name: "Type", value: "updateUser" });
     $.post("../php/users/process.php", formData).then(res => {
         document.getElementById('response').innerHTML = res;
-        if (res == "Successfully updated, redirecting now...") {
+        if (res == "SUCCESS: REDIRECT") {
             window.location.href = "login.php";
         }
         fetchUsersTable();
@@ -41,7 +42,6 @@ function updateUserProfile() {
  */
 function deleteUser(UserID) {
     $.post("../php/users/process.php", { UserID: UserID, Type: "deleteUser" }).then((res) => {
-        alert(res);
         if (res == "Successfully deleted!")
             fetchUsersTable();
         else

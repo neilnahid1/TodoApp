@@ -36,12 +36,14 @@ function updateUser($data)
         $query = "select * from Users where userid=$userID";
         $result = mysqli_query($link, $query)->fetch_assoc();
         session_start();
-        if (empty($data['Password']) || $userID != $_SESSION['user']['UserID']) {
+        if ($_SESSION['user']['UserID'] == $userID && !empty($_SESSION['Password'])) {
+            echo "SUCCESS: REDIRECT";
+            session_destroy();
+        } else if ($_SESSION['user']['UserID'] == $userID && empty($_SESSION['Password'])) {
             $_SESSION['user'] = $result;
-            echo "Successfully Updated.";
+            echo "Successfully updated";
         } else {
-            $_SESSION['user'] = $result;
-            echo "Successfully updated, redirecting now...";
+            echo "Successfully updated";
         }
     } else {
         printError($link);
