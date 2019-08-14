@@ -223,7 +223,8 @@ $user = $_SESSION['user'];
 
         function fetchTasksTable() {
             $('#pageContent').load("../html/index_tasks.html", () => {
-                document.getElementById('UserID').value = <?= $user['UserID'] ?>
+                document.getElementById('UserID').value = <?= $user['UserID'] ?>;
+                document.getElementById('UserID').value = <?= $user['UserID'] ?>;
             });
         }
     </script>

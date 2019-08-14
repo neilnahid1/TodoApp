@@ -21,7 +21,7 @@ function updateTaskItem($data)
     if (mysqli_query($link, $query)) {
         echo "Successfully updated task item.";
     } else {
-        echo mysqli_error($link);
+        echo mysqli_error($link);die;
     }
 }
 function getTaskItems($taskCodeID)

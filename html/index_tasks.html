@@ -1,6 +1,6 @@
 <div class="col-12">
     <button id="btn_addTask" data-toggle="modal" data-target="#modal_addTask" class="btn btn-primary">Add</button>
-    <button id="btn_editTask" data-toggle="modal" data-target="#modal_editTask" class="btn btn-primary">Edit</button>
+    <button onclick="generateTaskItemElements()" id="btn_editTask" data-toggle="modal" data-target="#modal_editTask" class="btn btn-primary">Edit</button>
     <button id="btn_deleteTask" data-toggle="modal" data-target="#modal_deleteTask"
         class="btn btn-primary">Delete</button>
 </div>
@@ -33,7 +33,45 @@
                                 placeholder="Description"></textarea>
                         </div>
                     </div>
-                    <button type="button" onclick="appendToTaskModal()" class="btn btn-primary rounded-circle"><i
+                    <button type="button" onclick="appendToAddTaskModal()" class="btn btn-primary rounded-circle"><i
+                            class="fa fa-plus"></i></button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="addTask()" type="button" class="btn btn-primary">Add Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Update Task Modal -->
+<div class="modal" id="modal_editTask" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_editTaskBody">
+                <form id="form_editTask">
+                    <input type="hidden" name="UserID" id="eTaskCodeID">
+                    <input type="hidden" name="UserID" id="eUserID">
+                    <div class="form-group row">
+                        <label for="Name" class="col-sm-3 col-form-label">Task name</label>
+                        <div class="col-sm-9">
+                            <input name="Name" type="text" class="form-control" id="Name" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Description" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea name="Description" type="text" class="form-control" id="Description"
+                                placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" onclick="appendToEditTaskModal()" class="btn btn-primary rounded-circle"><i
                             class="fa fa-plus"></i></button>
                 </form>
             </div>

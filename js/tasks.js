@@ -1,6 +1,5 @@
 function getCurrentUserTask() {
     $.post("../php/tasks/process.php", { Type: "getCurrentUserTasks" }).then((res) => {
-        alert(res);
         let table = generateTable(JSON.parse(res));
         document.getElementById("taskTable").innerHTML = "";
         document.getElementById("taskTable").appendChild(table);
@@ -39,7 +38,11 @@ function addTask() {
     });
 }
 function populateUserModalFields(data) {
-    for (let i = 0; i < data.length; i++) {
-        $(`#${i}`).val(data[i]);
-    }
+    $('#eTaskCodeID').val = data[0];
+    $('#eName').val = data[1];
+    $('#eDescription').val = data[2];
+    $('#eDateCreated').val = data[3];
+    $('#eDateUpdated').val = data[4];
+    $('#eUserID').val = data[5];
+    $('#eIsComplete').val = data[6];
 }

@@ -21,12 +21,27 @@ switch ($_POST['Type']) {
             echo "Successfully added task";
         }
         break;
-    case "updateTask":
-        updateTask($_POST);
-        break;
     case "deleteTask":
         deleteTask($_POST['TaskCodeID']);
         break;
+    case "getTaskItems":
+        if (!empty($_POST['TaskCodeID']))
+            getTaskItems($_POST['TaskCodeID']);
+        else {
+            echo "TaskCode invalid";
+        }
+    case "updateTask":
+        if (isset($_POST['Name']) && isset($_POST['Desciprtion'])) {
+            updateTask($_POST);
+        }
+        if (isset($_POST['TaskItems'])) {
+            foreach ($_POST['TaskItems'] as $item) {
+                updateTaskItem($item);
+            }
+            echo "Successfully Updated";
+        } else {
+            echo "There is no Task Items to update.";
+        }
     default:
-       echo "default case task.process.php";
+        echo "default case task.process.php";
 }
