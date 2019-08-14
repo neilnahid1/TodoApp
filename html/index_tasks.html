@@ -1,11 +1,67 @@
-<!-- Custom fonts for this template-->
-<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-<link
-    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-    rel="stylesheet">
-
-<!-- Custom styles for this template-->
-<link href="css/sb-admin-2.min.css" rel="stylesheet">
-
-<!-- Datatables styles -->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/sl-1.3.0/datatables.min.css" />
+<div class="col-12">
+    <button id="btn_addTask" data-toggle="modal" data-target="#modal_addTask" class="btn btn-primary">Add</button>
+    <button id="btn_editTask" data-toggle="modal" data-target="#modal_editTask" class="btn btn-primary">Edit</button>
+    <button id="btn_deleteTask" data-toggle="modal" data-target="#modal_deleteTask"
+        class="btn btn-primary">Delete</button>
+</div>
+<div class="table-responsive" id="taskTable">
+    <script>getCurrentUserTask();</script>
+</div>
+<!-- Add Modal-->
+<div class="modal" id="modal_addTask" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modal_addTaskBody">
+                <form id="form_addTask">
+                    <input type="hidden" name="UserID" id="UserID">
+                    <div class="form-group row">
+                        <label for="inputEmail3" class="col-sm-3 col-form-label">Task name</label>
+                        <div class="col-sm-9">
+                            <input name="Name" type="text" class="form-control" id="inputEmail3" placeholder="Name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="inputPassword3" class="col-sm-3 col-form-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea name="Description" type="text" class="form-control" id="inputPassword3"
+                                placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <button type="button" onclick="appendToTaskModal()" class="btn btn-primary rounded-circle"><i
+                            class="fa fa-plus"></i></button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button onclick="addTask()" type="button" class="btn btn-primary">Add Task</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- MODAL FOR DELETE CONFIRMATION -->
+<div class="modal" id="modal_DeleteUser" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Deleting Task</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete task?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button id="btn_confirmDeleteTask" type="button" class="btn btn-danger"
+                    data-dismiss="modal">Yes</button>
+            </div>
+        </div>
+    </div>
+</div>

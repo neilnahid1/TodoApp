@@ -1,18 +1,19 @@
 <?php
-require('../php/helper.php');
-require('../php/config.php');
-
+require "../config.php";
+require "../utilities/helper.php";
 function addTask($data)
 {
     global $link;
     $name = $data['Name'];
     $description = $data['Description'];
     $userID = $data['UserID'];
-    $query = "insert into Tasks(name,descriptiom,userid) value('$name','$description',$userID)";
+    $query = "insert into Tasks(name,description,userid) value('$name','$description',$userID)";
     if (mysqli_query($link, $query)) {
-        echo "Successfully Created Task.";
+        return mysqli_insert_id($link);
     } else {
-        echo mysqli_error($link);
+        var_dump($query);
+        echo printError($link);
+        echo "source: tasks.php - addTask";
     }
 }
 function updateTask($data)
@@ -43,6 +44,17 @@ function getTask($taskCodeID)
 {
     global $link;
     $query = "select * from Tasks where TaskCodeID=$taskCodeID";
+    $result = mysqli_query($link, $query);
+    if (mysqli_errno($link)) {
+        echo mysqli_error($link);
+    } else {
+        echo convertResultToJSON($result);
+    }
+}
+function getUserTasks($userID)
+{
+    global $link;
+    $query = "select * from Tasks where userid=$userID";
     $result = mysqli_query($link, $query);
     if (mysqli_errno($link)) {
         echo mysqli_error($link);

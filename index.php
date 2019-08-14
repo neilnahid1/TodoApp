@@ -27,7 +27,6 @@ $user = $_SESSION['user'];
     <!-- Datatables styles -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.18/sl-1.3.0/datatables.min.css" />
 
-
 </head>
 
 <body id="page-top">
@@ -73,7 +72,7 @@ $user = $_SESSION['user'];
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" onclick="fetchTasksTable()">
                     <i class="fas fa-fw fa-list"></i>
                     <span>Tasks</span>
                 </a>
@@ -201,6 +200,8 @@ $user = $_SESSION['user'];
     <script src="js/sb-admin-2.min.js"></script>
     <script src="../js/table_generator.js"></script>
     <script src="../js/users.js"></script>
+    <script src="/js/tasks.js"></script>
+    <script src="/js/taskItems.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.18/sl-1.3.0/datatables.min.js"></script>
 
     <script>
@@ -218,6 +219,12 @@ $user = $_SESSION['user'];
 
         function fetchUsersTable() {
             $('#pageContent').load("../html/index_users.html");
+        }
+
+        function fetchTasksTable() {
+            $('#pageContent').load("../html/index_tasks.html", () => {
+                document.getElementById('UserID').value = <?= $user['UserID'] ?>
+            });
         }
     </script>
 </body>

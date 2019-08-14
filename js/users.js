@@ -10,18 +10,22 @@ function getUsers() {
 }
 
 function applyDataTables() {
-    var tbl = $('#table').DataTable({ select: true, destroy: true });
-    $('#btn_editUser').click(e => {
-        let data = tbl.row({ selected: true }).data();
-        populateUserModalFields(data);
-    });
-    $('#btn_confirmDeleteUser').click(e => {
-        let data = tbl.row({ selected: true }).data();
-        deleteUser(data[0]);
-    });
-    $('#btn_updateChanges').click(e => {
-        updateUserProfile();
-    });
+    if (!tbl) { //runs if it's first time to initialize tbl
+        var tbl = $('#table').DataTable({ select: true, destroy: true });
+        $('#btn_editUser').click(e => {
+            let data = tbl.row({ selected: true }).data();
+            populateUserModalFields(data);
+        });
+        $('#btn_confirmDeleteUser').click(e => {
+            let data = tbl.row({ selected: true }).data();
+            deleteUser(data[0]);
+        });
+        $('#btn_updateChanges').click(e => {
+            updateUserProfile();
+        });
+    }
+    else
+        $('#table').DataTable({ select: true, destroy: true });
 }
 
 function updateUserProfile() {
@@ -32,7 +36,7 @@ function updateUserProfile() {
         if (res == "SUCCESS: REDIRECT") {
             window.location.href = "login.php";
         }
-        fetchUsersTable();
+        getUsers();
     });
 }
 

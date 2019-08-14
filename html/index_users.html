@@ -1,13 +1,13 @@
 <div class="col-12">
     <button id="btn_editUser" data-toggle="modal" data-target="#modal_User" class="btn btn-info">Edit</button>
-    <button id="btn_deleteUser" data-toggle="modal" data-target="#modal_DeleteUser" class="btn btn-danger">Delete</button>
+    <button id="btn_deleteUser" data-toggle="modal" data-target="#modal_DeleteUser"
+        class="btn btn-danger">Delete</button>
 </div>
 <div class="table-responsive" id="userTable">
     <script>getUsers();</script>
 </div>
 <!-- Modal -->
-<div class="modal" id="modal_User" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal" id="modal_User" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -39,13 +39,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">First name</label>
-                            <input id="1" name="FirstName" type="text" required class="form-control"
-                                id="inputEmail4" placeholder="First name">
+                            <input id="1" name="FirstName" type="text" required class="form-control" id="inputEmail4"
+                                placeholder="First name">
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Last name</label>
-                            <input id="2" name="LastName" type="text" required class="form-control"
-                                id="inputPassword4" placeholder="Last name">
+                            <input id="2" name="LastName" type="text" required class="form-control" id="inputPassword4"
+                                placeholder="Last name">
                         </div>
                     </div>
                     <div class="form-group">
@@ -56,8 +56,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputEmail4">Username</label>
-                            <input id="4" name="Username" type="text" required class="form-control"
-                                id="inputEmail4" placeholder="Username">
+                            <input id="4" name="Username" type="text" required class="form-control" id="inputEmail4"
+                                placeholder="Username">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="inputPassword4">Change Password</label>
@@ -76,8 +76,9 @@
                             id="inputPassword4" placeholder="Email Address">
                     </div>
 
-                    <p class="text-danger" id='response'></p>
-                    <button id="btn_updateChanges" data-dismiss="modal" type="button" style="float:right" class="btn btn-success btn-user">Save Changes</button>
+                    <p class="text-info" id='response'></p>
+                    <button id="btn_updateChanges" type="button" style="float:right"
+                        class="btn btn-success btn-user">Save Changes</button>
                 </form>
             </div>
             <div class="modal-footer">
@@ -87,21 +88,22 @@
 </div>
 <!-- MODAL FOR DELETE CONFIRMATION -->
 <div class="modal" id="modal_DeleteUser" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Delete User</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+                <h5 class="modal-title">Delete User</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
-              <p>Are you sure you want to delete user?</p>
+                <p>Are you sure you want to delete user?</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-              <button id="btn_confirmDeleteUser" type="button" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button id="btn_confirmDeleteUser" type="button" class="btn btn-danger"
+                    data-dismiss="modal">Yes</button>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
