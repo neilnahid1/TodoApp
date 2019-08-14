@@ -31,11 +31,14 @@ switch ($_POST['Type']) {
             echo "TaskCode invalid";
         break;
     case "updateTask":
-        if (isset($_POST['Name']) && isset($_POST['Desciprtion']))
+        if (isset($_POST['Name']) && isset($_POST['Description']))
             updateTask($_POST);
         if (isset($_POST['TaskItems'])) {
             foreach ($_POST['TaskItems'] as $item) {
-                updateTaskItem($item);
+                if (isset($item['TaskCodeID']))
+                    updateTaskItem($item);
+                else
+                    addTaskItem($item, $_POST['TaskCodeID']);
             }
             echo "Successfully Updated";
         } else

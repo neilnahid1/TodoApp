@@ -35,6 +35,8 @@
                     </div>
                     <button type="button" onclick="appendToAddTaskModal()" class="btn btn-primary rounded-circle"><i
                             class="fa fa-plus"></i></button>
+                    <div class="container-fluid" id="addTaskItemsContainer"></div>
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -56,7 +58,7 @@
             </div>
             <div class="modal-body" id="modal_editTaskBody">
                 <form id="form_editTask">
-                    <input type="hidden" name="UserID" id="eTaskCodeID">
+                    <input type="hidden" name="TaskCodeID" id="eTaskCodeID">
                     <input type="hidden" name="UserID" id="eUserID">
                     <div class="form-group row">
                         <label for="Name" class="col-sm-3 col-form-label">Task name</label>
@@ -73,12 +75,14 @@
                     </div>
                     <button type="button" onclick="appendToEditTaskModal()" class="btn btn-primary rounded-circle"><i
                             class="fa fa-plus"></i></button>
+                    <div class="container-fluid" id="editTaskItemContainer"></div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Update Task</button>
+                <button id="btn_confirmUpdateTask" type="button" class="btn btn-primary">Update Task</button>
             </div>
+
         </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 function getCurrentUserTask() {
     $.post("../php/tasks/process.php", { Type: "getCurrentUserTasks" }).then((res) => {
+        alert(res);
         let table = generateTable(JSON.parse(res));
         document.getElementById("taskTable").innerHTML = "";
         document.getElementById("taskTable").appendChild(table);
@@ -19,14 +20,16 @@ function applyDataTables() {
             deleteUser(data[0]);
         });
         $('#btn_confirmUpdateTask').click(e => {
-            updateUserProfile();
+            updateTask();
         });
     }
     else
         $('#table').DataTable({ select: true, destroy: true });
 }
 function updateTask() {
-    $.post("../php/tasks/process.php", { Type: "updateUserTask" }).then((res) => {
+    let formData = $('#form_editTask').serializeArray();
+    formData.push({name:"Type",value:"updateTask"});
+    $.post("../php/tasks/process.php", formData).then((res) => {
         alert(res);
     });
 }
@@ -57,18 +60,21 @@ function createTaskItemElement(TaskItemID) {
         `<div class="input-group mb-3">
         <div class="input-group-prepend">
             <div class="input-group-text">
-                <input name="TaskItems[${TaskItemID}][TaskCodeID]" type="hidden" value="${TaskItemID}">
-                <input name="TaskItems[${TaskItemID}][Name]" type="text" class="form-control" aria-label="Text input with checkbox">
                 <input name="TaskItems[${TaskItemID}][IsDone]" type="checkbox" aria-label="Checkbox for following text input">
+                <input name="TaskItems[${TaskItemID}][Name]" placeholder="Task name" type="text" class="form-control" aria-label="Text input with checkbox">
+                <button value="${TaskItemID}" type="button" onclick="removeTaskItemElement(this.value)" class="btn btn-primary rounded-circle"><i
+                            class="fa fa-times"></i></button>
             </div>
         </div>
     </div>`;
     return taskItem;
 }
 function appendToAddTaskModal() {
-    document.getElementById('form_addTask').insertAdjacentHTML('beforeend', createTaskItemElement(TaskItemID++));
+    document.getElementById('addTaskItemsContainer').insertAdjacentHTML('beforeend', createTaskItemElement(TaskItemID++));
 }
 
+
+//FUNCTION FOR EDIT MODAL
 function createEditTaskItemElement(taskItemObject) {
     if (!TaskItemID)
         var TaskItemID = 0;
@@ -77,10 +83,10 @@ function createEditTaskItemElement(taskItemObject) {
         <div class="input-group-prepend">
             <div class="input-group-text">
                 <input name="TaskItems[${taskItemObject.TaskItemID}][TaskCodeID]" type="hidden" value="${taskItemObject.TaskCodeID}">
-                <input value="${taskItemObject.Name}" name="TaskItems[${taskItemObject.TaskItemID}][Name]" type="text" class="form-control" aria-label="Text input with checkbox">
-                <input ${taskItemObject.IsDone ? "checked" : ""} name="TaskItems[${taskItemObject.TaskItemID}][IsDone]" type="checkbox" aria-label="Checkbox for following text input">
+                <input ${taskItemObject.IsDone ? "checked" : ""} name="TaskItems[${taskItemObject.TaskItemID}][IsDone]" type="checkbox" aria-label="Checkbox for following text input">               
+                <input value="${taskItemObject.Name}" placeholder="Task name" name="TaskItems[${taskItemObject.TaskItemID}][Name]" type="text" class="form-control" aria-label="Text input with checkbox">
                 <button value="${taskItemObject.TaskItemID}" type="button" onclick="removeTaskItemElement(this.value)" class="btn btn-primary rounded-circle"><i
-                            class="fa fa-plus"></i></button>
+                            class="fa fa-times"></i></button>
             </div>
         </div>
     </div>`;
@@ -90,7 +96,7 @@ function removeTaskItemElement(TaskItemID) {
     document.getElementById(`taskItem${TaskItemID}`).remove();
 }
 function appendToEditTaskModal() {
-    document.getElementById('form_editTask').insertAdjacentHTML('beforeend', createTaskItemElement(TaskItemID++));
+    document.getElementById('editTaskItemContainer').insertAdjacentHTML('beforeend', createTaskItemElement(TaskItemID++));
 }
 /**
  * 
@@ -99,8 +105,7 @@ function appendToEditTaskModal() {
 function generateTaskItemElements(taskItems) {
     taskItems.forEach(taskItem => {
         let item = createEditTaskItemElement(taskItem);
-        document.getElementById('form_editTask').insertAdjacentHTML('beforeend', item);
-        alert("sup");
+        document.getElementById('editTaskItemContainer').insertAdjacentHTML('beforeend', item);
     });
 }
 

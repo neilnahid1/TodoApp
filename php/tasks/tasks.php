@@ -21,13 +21,14 @@ function updateTask($data)
     global $link;
     $name = $data['Name'];
     $description = $data['Description'];
-    $userID = $data['UserID'];
-    $isComplete = $data['IsComplete'];
-    $query = "insert into Tasks(name,description,dateupdated,iscomplete) values('$name','$description',now(),$isComplete)";
+    $taskCodeID = $data['TaskCodeID'];
+    $isComplete = isset($data['IsComplete']) ? 1 : 0;
+    $query = "update Tasks set name='$name',description='$description',iscomplete=$isComplete, dateupdated=now() where taskcodeID=$taskCodeID";
     if (mysqli_query($link, $query)) {
         echo "Successfully updated!";
     } else {
         echo mysqli_error($link);
+        echo "source: tasks.php.updateTask()";
     }
 }
 function deleteTask($taskCodeID)

@@ -5,23 +5,28 @@ function addTaskItem($data, $taskCodeID)
     $name = $data['Name'];
     $isDone = isset($data['IsDone']) ? 1 : 0;
     $query = "insert into TaskItems(name,taskCodeID,isDone) values('$name','$taskCodeID',$isDone)";
+    var_dump($query);
     if (!mysqli_query($link, $query)) {
         printError($link);
         echo "source: taskitems.php.addTaskItem()";
         die;
     }
+    else
+        echo "Successfully added task item";
 }
 function updateTaskItem($data)
 {
     global $link;
     $taskCodeID = $data['TaskCodeID'];
     $name = $data['Name'];
-    $isDone = $data['IsDone'];
+    $isDone = isset($data['IsDone']) ? 1 : 0;
     $query = "update taskItems set name='$name',isdone=$isDone where taskcodeID=$taskCodeID";
+    die;
     if (mysqli_query($link, $query)) {
         echo "Successfully updated task item.";
     } else {
-        echo mysqli_error($link);die;
+        echo mysqli_error($link);
+        echo "source: taskitems.php.updateTaskItem()";
     }
 }
 function getTaskItems($taskCodeID)
