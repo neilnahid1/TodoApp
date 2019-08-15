@@ -36,7 +36,7 @@ function updateUser($data)
         $query = "select * from Users where userid=$userID";
         $result = mysqli_query($link, $query)->fetch_assoc();
         session_start();
-        if ($_SESSION['user']['UserID'] == $userID && !empty($_SESSION['Password'])) {
+        if ($_SESSION['user']['UserID'] == $userID && !empty($data['Password'])) {
             echo "SUCCESS: REDIRECT";
             session_destroy();
         } else if ($_SESSION['user']['UserID'] == $userID && empty($_SESSION['Password'])) {
