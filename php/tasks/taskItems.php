@@ -10,18 +10,17 @@ function addTaskItem($data, $taskCodeID)
         printError($link);
         echo "source: taskitems.php.addTaskItem()";
         die;
-    }
-    else
-        echo "Successfully added task item";
+    } else
+        //return the id of the newly added item
+        return mysqli_insert_id($link);
 }
 function updateTaskItem($data)
 {
     global $link;
-    $taskCodeID = $data['TaskCodeID'];
+    $taskItemID = $data['TaskItemID'];
     $name = $data['Name'];
     $isDone = isset($data['IsDone']) ? 1 : 0;
-    $query = "update taskItems set name='$name',isdone=$isDone where taskcodeID=$taskCodeID";
-    die;
+    $query = "update taskItems set name='$name',isdone=$isDone where taskItemID=$taskItemID";
     if (mysqli_query($link, $query)) {
         echo "Successfully updated task item.";
     } else {
@@ -40,12 +39,16 @@ function getTaskItems($taskCodeID)
         echo convertResultToJSON($result);
     }
 }
-function deleteTaskItem($taskCodeID, $taskItemID)
+function deleteTaskItems($taskCodeID, $taskItemIDs)
 {
     global $link;
-    $query = "delete * from TaskItems where TaskCodeID=$taskCodeID and taskitemID=$taskItemID";
+    $query = "delete from TaskItems where ";
+    foreach($taskItemIDs as $taskItemID){
+        $query .= "taskitemID!=$taskItemID and ";
+    }
+    $query = substr($query,0,strlen($query)-4);
     if (mysqli_query($link, $query)) {
-        echo "Successfully deleted task Item.";
+        echo "Successfully deleted task Items.";
     } else {
         echo mysqli_error($link);
     }

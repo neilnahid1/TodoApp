@@ -1,6 +1,5 @@
 function getCurrentUserTask() {
     $.post("../php/tasks/process.php", { Type: "getCurrentUserTasks" }).then((res) => {
-        alert(res);
         let table = generateTable(JSON.parse(res));
         document.getElementById("taskTable").innerHTML = "";
         document.getElementById("taskTable").appendChild(table);
@@ -11,6 +10,7 @@ function applyDataTables() {
     if (!tbl) { //runs if it's first time to initialize tbl
         var tbl = $('#table').DataTable({ select: true, destroy: true });
         $('#btn_editTask').click(e => {
+            clearTaskItemElements();
             let data = tbl.row({ selected: true }).data();
             getTaskItems(data[0]); //first index of table is TaskCOdeID thus 0;
             populateEditTaskModalField(data);
@@ -22,13 +22,16 @@ function applyDataTables() {
         $('#btn_confirmUpdateTask').click(e => {
             updateTask();
         });
+        $('#btn_addTask').click(e => {
+            clearTaskItemElements();
+        })
     }
     else
         $('#table').DataTable({ select: true, destroy: true });
 }
 function updateTask() {
     let formData = $('#form_editTask').serializeArray();
-    formData.push({name:"Type",value:"updateTask"});
+    formData.push({ name: "Type", value: "updateTask" });
     $.post("../php/tasks/process.php", formData).then((res) => {
         alert(res);
     });
@@ -83,6 +86,7 @@ function createEditTaskItemElement(taskItemObject) {
         <div class="input-group-prepend">
             <div class="input-group-text">
                 <input name="TaskItems[${taskItemObject.TaskItemID}][TaskCodeID]" type="hidden" value="${taskItemObject.TaskCodeID}">
+                <input name="TaskItems[${taskItemObject.TaskItemID}][TaskItemID]" type="hidden" value="${taskItemObject.TaskItemID}">
                 <input ${taskItemObject.IsDone ? "checked" : ""} name="TaskItems[${taskItemObject.TaskItemID}][IsDone]" type="checkbox" aria-label="Checkbox for following text input">               
                 <input value="${taskItemObject.Name}" placeholder="Task name" name="TaskItems[${taskItemObject.TaskItemID}][Name]" type="text" class="form-control" aria-label="Text input with checkbox">
                 <button value="${taskItemObject.TaskItemID}" type="button" onclick="removeTaskItemElement(this.value)" class="btn btn-primary rounded-circle"><i
@@ -91,6 +95,12 @@ function createEditTaskItemElement(taskItemObject) {
         </div>
     </div>`;
     return taskItem;
+}
+
+//clear the task items whenever the user adds/edits a task item, happens before the modal pop ups
+function clearTaskItemElements() {
+    document.getElementById('addTaskItemsContainer').innerHTML = "";
+    document.getElementById('editTaskItemContainer').innerHTML = "";
 }
 function removeTaskItemElement(TaskItemID) {
     document.getElementById(`taskItem${TaskItemID}`).remove();

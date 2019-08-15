@@ -34,13 +34,20 @@ switch ($_POST['Type']) {
         if (isset($_POST['Name']) && isset($_POST['Description']))
             updateTask($_POST);
         if (isset($_POST['TaskItems'])) {
+            $existingItems = array();
             foreach ($_POST['TaskItems'] as $item) {
-                if (isset($item['TaskCodeID']))
+                // var_dump($item);
+                //updates existing items and add new ones
+                if (isset($item['TaskItemID'])) {
                     updateTaskItem($item);
-                else
-                    addTaskItem($item, $_POST['TaskCodeID']);
+                    $existingItems[] = $item['TaskItemID'];
+                } else {
+                    //add to the existing items the newly added task item
+                    $existingItems[] = addTaskItem($item, $_POST['TaskCodeID']);
+                }
             }
-            echo "Successfully Updated";
+            //delete wasn't included in the post method, it is assumed deleted
+            deleteTaskItems($_POST['TaskCodeID'], $existingItems);
         } else
             echo "There is no Task Items to update.";
         break;
