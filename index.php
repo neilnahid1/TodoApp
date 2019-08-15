@@ -141,6 +141,7 @@ $user = $_SESSION['user'];
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid" id="pageContent">
+                    <h1 class="h1">Welcome <?php echo "{$user['FirstName']} {$user['LastName']}"; ?></h1>
                     <table class='table' id='mainTable'></table>
                 </div>
                 <!-- /.container-fluid -->
@@ -151,7 +152,7 @@ $user = $_SESSION['user'];
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2019</span>
+                        <span>Copyright &copy; Todo App 2019</span>
                     </div>
                 </div>
             </footer>
