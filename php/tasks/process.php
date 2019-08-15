@@ -48,6 +48,7 @@ switch ($_POST['Type']) {
             }
             //delete wasn't included in the post method, it is assumed deleted
             deleteTaskItems($_POST['TaskCodeID'], $existingItems);
+            echo "Successfully updated Task.";
         } else
             echo "There is no Task Items to update.";
         break;

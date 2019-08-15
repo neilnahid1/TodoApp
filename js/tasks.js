@@ -22,6 +22,7 @@ function applyTaskDataTables() {
         });
         $('#btn_confirmUpdateTask').click(e => {
             updateTask();
+            getCurrentUserTask();
         });
         $('#btn_addTask').click(e => {
             clearTaskItemElements();
@@ -34,7 +35,11 @@ function updateTask() {
     let formData = $('#form_editTask').serializeArray();
     formData.push({ name: "Type", value: "updateTask" });
     $.post("../php/tasks/process.php", formData).then((res) => {
-        alert(res);
+        if (res == "Successfully updated Task.") {
+            $("#responseMessage").val = res;
+        }
+        else
+            alert(res);
     });
 }
 function addTask() {
@@ -96,7 +101,7 @@ function createEditTaskItemElement(taskItemObject) {
             <div class="input-group-text">
                 <input name="TaskItems[${taskItemObject.TaskItemID}][TaskCodeID]" type="hidden" value="${taskItemObject.TaskCodeID}">
                 <input name="TaskItems[${taskItemObject.TaskItemID}][TaskItemID]" type="hidden" value="${taskItemObject.TaskItemID}">
-                <input ${taskItemObject.IsDone==1 ? "checked" : "unchecked"} name="TaskItems[${taskItemObject.TaskItemID}][IsDone]" type="checkbox" aria-label="Checkbox for following text input">               
+                <input ${taskItemObject.IsDone == 1 ? "checked" : "unchecked"} name="TaskItems[${taskItemObject.TaskItemID}][IsDone]" type="checkbox" aria-label="Checkbox for following text input">               
                 <input value="${taskItemObject.Name}" placeholder="Task name" name="TaskItems[${taskItemObject.TaskItemID}][Name]" type="text" class="form-control" aria-label="Text input with checkbox">
                 <button value="${taskItemObject.TaskItemID}" type="button" onclick="removeTaskItemElement(this.value)" class="btn btn-primary rounded-circle"><i
                             class="fa fa-times"></i></button>

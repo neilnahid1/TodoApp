@@ -5,7 +5,6 @@ function addTaskItem($data, $taskCodeID)
     $name = $data['Name'];
     $isDone = isset($data['IsDone']) ? 1 : 0;
     $query = "insert into TaskItems(name,taskCodeID,isDone) values('$name','$taskCodeID',$isDone)";
-    var_dump($query);
     if (!mysqli_query($link, $query)) {
         printError($link);
         echo "source: taskitems.php.addTaskItem()";
@@ -20,10 +19,10 @@ function updateTaskItem($data)
     $taskItemID = $data['TaskItemID'];
     $name = $data['Name'];
     $isDone = isset($data['IsDone']) ? 1 : 0;
-    
+
     $query = "update taskItems set name='$name',isdone=$isDone where taskItemID=$taskItemID";
     if (mysqli_query($link, $query)) {
-        echo "Successfully updated task item.";
+        return;
     } else {
         echo mysqli_error($link);
         echo "source: taskitems.php.updateTaskItem()";
@@ -43,14 +42,15 @@ function getTaskItems($taskCodeID)
 function deleteTaskItems($taskCodeID, $taskItemIDs)
 {
     global $link;
-    $query = "delete from TaskItems where ";
+    $query = "delete from TaskItems where taskcodeid=$taskCodeID and ";
     foreach ($taskItemIDs as $taskItemID) {
         $query .= "taskitemID!=$taskItemID and ";
     }
     $query = substr($query, 0, strlen($query) - 4);
-    if (mysqli_query($link, $query)) {
+    if (mysqli_query($link, $query)->num_rows) {
         echo "Successfully deleted task Items.";
-    } else {
-        echo mysqli_error($link);
+    }
+    if (mysqli_errno($link)) {
+        printError($link);
     }
 }
