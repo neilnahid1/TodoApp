@@ -4,8 +4,9 @@ require "../tasks/taskItems.php";
 session_start();
 switch ($_POST['Type']) {
     case "getCurrentUserTasks":
-        getUserTasks($_SESSION['user']['UserID']);
+        getUserTasks($_POST['UserID']);
         break;
+    
     case "addTask":
         $latest_taskCodeID = addTask($_POST); // add task first
 

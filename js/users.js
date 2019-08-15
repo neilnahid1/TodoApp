@@ -22,6 +22,11 @@ function applyUserSDataTables() {
         $('#btn_updateChanges').click(e => {
             updateUserProfile();
         });
+        $('#btn_viewUserTasks').click(e => {
+            let data = tbl.row({ selected: true }).data();
+            alert(data[0]   );
+            fetchTasksTable("getCurrentUserTasks", data[0]);
+        });
     }
     else
         $('#table').DataTable({ select: true, destroy: true });

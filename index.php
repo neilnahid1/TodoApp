@@ -220,10 +220,11 @@ $user = $_SESSION['user'];
             $('#pageContent').load("../html/index_users.html");
         }
 
-        function fetchTasksTable() {
+        function fetchTasksTable(Type = "getCurrentUserTasks", UserID = <?= $user['UserID'] ?>) {
             $('#pageContent').load("../html/index_tasks.html", () => {
-                document.getElementById('UserID').value = <?= $user['UserID'] ?>;
-                document.getElementById('eUserID').value = <?= $user['UserID'] ?>;
+                document.getElementById('UserID').value = UserID;
+                document.getElementById('eUserID').value = UserID;
+                getUserTasks(Type,UserID);
             });
         }
     </script>

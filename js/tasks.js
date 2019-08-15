@@ -1,5 +1,5 @@
-function getCurrentUserTask() {
-    $.post("../php/tasks/process.php", { Type: "getCurrentUserTasks" }).then((res) => {
+function getUserTasks(Type,UserID) {
+    $.post("../php/tasks/process.php", { Type: Type, UserID: UserID }).then((res) => {
         let table = generateTable(JSON.parse(res));
         document.getElementById("taskTable").innerHTML = "";
         document.getElementById("taskTable").appendChild(table);
@@ -22,7 +22,7 @@ function applyTaskDataTables() {
         });
         $('#btn_confirmUpdateTask').click(e => {
             updateTask();
-            getCurrentUserTask();
+            getUserTasks();
         });
         $('#btn_addTask').click(e => {
             clearTaskItemElements();
@@ -46,13 +46,13 @@ function addTask() {
     let formData = $('#form_addTask').serializeArray();
     formData.push({ name: "Type", value: "addTask" });
     $.post("../php/tasks/process.php", formData).then(res => {
-        getCurrentUserTask();
+        getUserTasks();
     });
 }
 function deleteTask(TaskCodeID) {
     $.post("../php/tasks/process.php", { Type: "deleteTask", TaskCodeID: TaskCodeID }).then((res) => {
         if (res == "Successfully deleted Task.")
-            getCurrentUserTask();
+            getUserTasks();
         else
             alert(res);
     });
