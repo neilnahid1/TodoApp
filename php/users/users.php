@@ -31,7 +31,10 @@ function updateUser($data)
     $email = $data['EmailAddress'];
     $roleID = $data['RoleID'];
     $userID = $data['UserID'];
-    $query = "update Users set username='$username',password='$hashedPassword',firstname='$firstName',lastname='$lastName', address='$address',emailaddress='$email',roleID=$roleID where userid=$userID";
+    if (!empty($data['Password']))
+        $query = "update Users set username='$username',password='$hashedPassword',firstname='$firstName',lastname='$lastName', address='$address',emailaddress='$email',roleID=$roleID where userid=$userID";
+    else
+        $query = "update Users set username='$username',firstname='$firstName',lastname='$lastName', address='$address',emailaddress='$email',roleID=$roleID where userid=$userID";
     if (mysqli_query($link, $query)) {
         $query = "select * from Users where userid=$userID";
         $result = mysqli_query($link, $query)->fetch_assoc();

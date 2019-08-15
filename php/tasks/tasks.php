@@ -25,7 +25,7 @@ function updateTask($data)
     $isComplete = isset($data['IsComplete']) ? 1 : 0;
     $query = "update Tasks set name='$name',description='$description',iscomplete=$isComplete, dateupdated=now() where taskcodeID=$taskCodeID";
     if (mysqli_query($link, $query)) {
-        echo "Successfully updated!";
+        return;
     } else {
         echo mysqli_error($link);
         echo "source: tasks.php.updateTask()";

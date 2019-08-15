@@ -36,7 +36,7 @@ function updateTask() {
     formData.push({ name: "Type", value: "updateTask" });
     $.post("../php/tasks/process.php", formData).then((res) => {
         if (res == "Successfully updated Task.") {
-            $("#responseMessage").val = res;
+            document.getElementById('responseMessage').value = res;
         }
         else
             alert(res);

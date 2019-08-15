@@ -11,7 +11,7 @@ switch ($_POST['Type']) {
             echo "You must provide all fields.";
         break;
     case "updateUser":
-        if (isFieldsSet($_POST) || empty($_POST['Password']) || empty($_POST['ConfirmPassword'])) {
+        if (isFieldsSet($_POST) || empty($_POST['Password']) && empty($_POST['ConfirmPassword'])) {
             if ($_POST['Password'] == $_POST['ConfirmPassword'])
                 updateUser($_POST);
             else
