@@ -58,7 +58,6 @@ function deleteTask(TaskCodeID) {
     });
 }
 function populateEditTaskModalField(data) {
-    alert(data);
     document.getElementById('eTaskCodeID').value = data[0];
     document.getElementById('eName').value = data[1];
     document.getElementById('eDescription').value = data[2];
@@ -135,7 +134,6 @@ function generateTaskItemElements(taskItems) {
 
 function getTaskItems(TaskCodeID) {
     $.post("../php/tasks/process.php", { TaskCodeID: TaskCodeID, Type: "getTaskItems" }, (res) => {
-        alert(res);
         generateTaskItemElements(JSON.parse(res));
     });
 }

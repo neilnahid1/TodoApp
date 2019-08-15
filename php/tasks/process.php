@@ -46,11 +46,13 @@ switch ($_POST['Type']) {
                     $existingItems[] = addTaskItem($item, $_POST['TaskCodeID']);
                 }
             }
-            //delete wasn't included in the post method, it is assumed deleted
+            //delete wasn't included in the post method, it is assumed deleted=
             deleteTaskItems($_POST['TaskCodeID'], $existingItems);
             echo "Successfully updated Task.";
-        } else
-            echo "There is no Task Items to update.";
+        } else {
+            //if task items are empty, it means, user deleted all the task items;
+            deleteAllTaskItemsOf($_POST['TaskCodeID']);
+         }
         break;
     default:
         echo "default case task.process.php";

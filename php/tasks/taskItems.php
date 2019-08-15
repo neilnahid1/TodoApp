@@ -54,3 +54,14 @@ function deleteTaskItems($taskCodeID, $taskItemIDs)
         printError($link);
     }
 }
+function deleteAllTaskItemsOf($taskCodeID)
+{
+    global $link;
+    $query = "delete from Taskitems where taskCodeId=$taskCodeID";
+    mysqli_query($link, $query);
+    if (mysqli_errno($link)) {
+        printError($link);
+    } else {
+        return;
+    }
+}
