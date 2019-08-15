@@ -20,6 +20,7 @@ function updateTaskItem($data)
     $taskItemID = $data['TaskItemID'];
     $name = $data['Name'];
     $isDone = isset($data['IsDone']) ? 1 : 0;
+    
     $query = "update taskItems set name='$name',isdone=$isDone where taskItemID=$taskItemID";
     if (mysqli_query($link, $query)) {
         echo "Successfully updated task item.";
@@ -43,10 +44,10 @@ function deleteTaskItems($taskCodeID, $taskItemIDs)
 {
     global $link;
     $query = "delete from TaskItems where ";
-    foreach($taskItemIDs as $taskItemID){
+    foreach ($taskItemIDs as $taskItemID) {
         $query .= "taskitemID!=$taskItemID and ";
     }
-    $query = substr($query,0,strlen($query)-4);
+    $query = substr($query, 0, strlen($query) - 4);
     if (mysqli_query($link, $query)) {
         echo "Successfully deleted task Items.";
     } else {
