@@ -3,10 +3,10 @@ function getCurrentUserTask() {
         let table = generateTable(JSON.parse(res));
         document.getElementById("taskTable").innerHTML = "";
         document.getElementById("taskTable").appendChild(table);
-        applyDataTables();
+        applyTaskDataTables();
     });
 }
-function applyDataTables() {
+function applyTaskDataTables() {
     if (!tbl) { //runs if it's first time to initialize tbl
         var tbl = $('#table').DataTable({ select: true, destroy: true });
         $('#btn_editTask').click(e => {
@@ -17,7 +17,8 @@ function applyDataTables() {
         });
         $('#btn_confirmDeleteTask').click(e => {
             let data = tbl.row({ selected: true }).data();
-            deleteUser(data[0]);
+            deleteTask(data[0]);// the first index is the taskCodeID
+
         });
         $('#btn_confirmUpdateTask').click(e => {
             updateTask();
@@ -30,7 +31,7 @@ function applyDataTables() {
         $('#table').DataTable({ select: true, destroy: true });
 }
 function updateTask() {
-    let formData = $('#form_editTask').serializeArray();
+    let formData = $('#form_editsask').serializeArray();
     formData.push({ name: "Type", value: "updateTask" });
     $.post("../php/tasks/process.php", formData).then((res) => {
         alert(res);
@@ -41,6 +42,14 @@ function addTask() {
     formData.push({ name: "Type", value: "addTask" });
     $.post("../php/tasks/process.php", formData).then(res => {
         getCurrentUserTask();
+    });
+}
+function deleteTask(TaskCodeID) {
+    $.post("../php/tasks/process.php", { Type: "deleteTask", TaskCodeID: TaskCodeID }).then((res) => {
+        if (res == "Successfully deleted Task.")
+            getCurrentUserTask();
+        else
+            alert(res);
     });
 }
 function populateEditTaskModalField(data) {

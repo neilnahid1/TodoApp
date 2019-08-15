@@ -4,12 +4,11 @@ function getUsers() {
             let table = generateTable(JSON.parse(res));
             document.getElementById("userTable").innerHTML = "";
             document.getElementById("userTable").appendChild(table);
-            applyDataTables();
+            applyUserSDataTables();
         }
     );
 }
-
-function applyDataTables() {
+function applyUserSDataTables() {
     if (!tbl) { //runs if it's first time to initialize tbl
         var tbl = $('#table').DataTable({ select: true, destroy: true });
         $('#btn_editUser').click(e => {
