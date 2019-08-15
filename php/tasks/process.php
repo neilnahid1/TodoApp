@@ -6,7 +6,7 @@ switch ($_POST['Type']) {
     case "getCurrentUserTasks":
         getUserTasks($_POST['UserID']);
         break;
-    
+
     case "addTask":
         $latest_taskCodeID = addTask($_POST); // add task first
 
@@ -53,7 +53,8 @@ switch ($_POST['Type']) {
         } else {
             //if task items are empty, it means, user deleted all the task items;
             deleteAllTaskItemsOf($_POST['TaskCodeID']);
-         }
+            echo "Successfully updated Task.";
+        }
         break;
     default:
         echo "default case task.process.php";

@@ -1,4 +1,4 @@
-function getUserTasks(Type,UserID) {
+function getUserTasks(Type = "getCurrentUserTasks", UserID = "1") {
     $.post("../php/tasks/process.php", { Type: Type, UserID: UserID }).then((res) => {
         let table = generateTable(JSON.parse(res));
         document.getElementById("taskTable").innerHTML = "";
