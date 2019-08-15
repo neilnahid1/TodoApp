@@ -24,7 +24,6 @@ function applyUserSDataTables() {
         });
         $('#btn_viewUserTasks').click(e => {
             let data = tbl.row({ selected: true }).data();
-            alert(data[0]   );
             fetchTasksTable("getCurrentUserTasks", data[0]);
         });
     }
